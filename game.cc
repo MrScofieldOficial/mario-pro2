@@ -3,8 +3,8 @@
 using namespace pro2;
 
 Game::Game(int width, int height)
-    : mario_({width / 2, 150}),
-      luigi_({width / 2 - 30, 150}, 'W', 'A', 'D'),
+    : mario_({width / 2, 150}, 0),
+      luigi_({width / 2 - 30, 150}, 'W', 'A', 'D', 1),
       platforms_{
           Platform(100, 300, 200, 211),
           Platform(0, 200, 250, 261),
@@ -23,8 +23,11 @@ void Game::process_keys(pro2::Window& window) {
         finished_ = true;
         return;
     }
+    if (window.is_key_down('r')) {
+        // iniciar_partida;
+    }
     if (window.is_key_down(80) && !window.was_key_pressed(80)) {
-        paused_ = !paused_; //toggle
+        paused_ = !paused_;  // toggle
     }
 }
 
@@ -37,10 +40,10 @@ void Game::update_camera(pro2::Window& window) {
     const Pt pos = mario_.pos();
     const Pt cam = window.camera_center();
 
-    const int left = cam.x - window.width() / 3;
-    const int right = cam.x + window.width() / 3;
-    const int top = cam.y - window.height() / 3;
-    const int bottom = cam.y + window.height() / 3;
+    const int left = cam.x - window.width() / 4;
+    const int right = cam.x + window.width() / 4;
+    const int top = cam.y - window.height() / 4;
+    const int bottom = cam.y + window.height() / 4;
 
     int dx = 0, dy = 0;
     if (pos.x > right) {
@@ -72,30 +75,23 @@ void Game::update(pro2::Window& window) {
 void Game::paint(pro2::Window& window) {
     window.clear(sky_blue);
 
-    const Pt cam = window.camera_center();
-
-    Rect rect;
-    rect.top = cam.y - 10;
-    rect.right = cam.x + 10;
-    rect.bottom = cam.y + 10;
-    rect.left = cam.x - 10;
-    //* Per fer que el rectangle faci pampallugues
-    // if (window.frame_count() % 4 == 0)
-       paint_rect(window, rect, yellow);
-    
+    const Pt  cam = window.camera_center();
+    const int width = window.width();
+    const int height = window.height();
 
     for (const Platform& p : platforms_) {
         p.paint(window);
     }
-    mario_.paint_mario(window);
-    luigi_.paint_mario(window);
 
-    const int left = cam.x - window.width() / 2;
-    const int right = cam.x + window.width() / 2;
-    const int top = cam.y - window.height() / 2;
-    const int bottom = cam.y + window.height() / 2;
+    mario_.paint(window);
+    luigi_.paint(window);
 
-    const pro2::Color col = red;
+    //* Pintar recuadre
+    const pro2::Color col = white;
+    const int         left = cam.x - width / 2;
+    const int         right = cam.x + width / 2;
+    const int         top = cam.y - height / 2;
+    const int         bottom = cam.y + height / 2;
     paint_hline(window, left, right, top, col);
     paint_hline(window, left, right, bottom - 1, col);
     paint_vline(window, left, top, bottom, col);

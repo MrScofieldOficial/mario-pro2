@@ -8,34 +8,58 @@ const int r = pro2::red;
 const int s = 0xecc49b;
 const int b = 0x5e6ddc;
 const int y = pro2::yellow;
-const int h = pro2::black;
-const int g = 0xaaaaaa;
-const int w = 0x8d573c;
+const int f = pro2::black;
+const int g = pro2::green;
+const int h = 0x964807;
 
 // clang-format off
 const vector<vector<int>> Mario::mario_sprite_normal_ = {
     {_, _, _, r, r, r, r, r, _, _, _, _},
     {_, _, r, r, r, r, r, r, r, r, r, _},
-    {_, _, h, h, h, s, s, h, s, _, _, _},
-    {_, h, s, h, s, s, s, h, s, s, s, _},
-    {_, h, s, h, h, s, s, s, h, s, s, s},
-    {_, h, h, s, s, s, s, h, h, h, h, _},
+    {_, _, h, h, h, s, s, f, s, _, _, _},
+    {_, h, s, h, s, s, s, f, s, s, s, _},
+    {_, h, s, h, h, s, s, s, f, s, s, s},
+    {_, h, h, s, s, s, s, f, f, f, f, _},
     {_, _, _, s, s, s, s, s, s, s, _, _},
     {_, _, r, r, b, r, r, r, _, _, _, _},
     {_, r, r, r, b, r, r, b, r, r, r, _},
     {r, r, r, r, b, b, b, b, r, r, r, r},
-    {g, g, r, b, y, b, b, y, b, r, g, g},
-    {g, g, g, b, b, b, b, b, b, g, g, g},
-    {g, g, b, b, b, b, b, b, b, b, g, g},
+    {s, s, r, b, y, b, b, y, b, r, s, s},
+    {s, s, s, b, b, b, b, b, b, s, s, s},
+    {s, s, b, b, b, b, b, b, b, b, s, s},
     {_, _, b, b, b, _, _, b, b, b, _, _},
-    {_, w, w, w, _, _, _, _, w, w, w, _},
-    {w, w, w, w, _, _, _, _, w, w, w, w},
+    {_, h, h, h, _, _, _, _, h, h, h, _},
+    {h, h, h, h, _, _, _, _, h, h, h, h},
 };
+
+const vector<vector<int>> Mario::luigi_sprite_normal_ = {
+    {_, _, _, g, g, g, g, g, _, _, _, _},
+    {_, _, g, g, g, g, g, g, g, g, g, _},
+    {_, _, h, h, h, s, s, f, s, _, _, _},
+    {_, h, s, h, s, s, s, f, s, s, s, _},
+    {_, h, s, h, h, s, s, s, f, s, s, s},
+    {_, h, h, s, s, s, s, f, f, f, f, _},
+    {_, _, _, s, s, s, s, s, s, s, _, _},
+    {_, _, g, g, b, g, g, g, _, _, _, _},
+    {_, g, g, g, b, g, g, b, g, g, g, _},
+    {g, g, g, g, b, b, b, b, g, g, g, g},
+    {s, s, g, b, y, b, b, y, b, g, s, s},
+    {s, s, s, b, b, b, b, b, b, s, s, s},
+    {s, s, b, b, b, b, b, b, b, b, s, s},
+    {_, _, b, b, b, _, _, b, b, b, _, _},
+    {_, h, h, h, _, _, _, _, h, h, h, _},
+    {h, h, h, h, _, _, _, _, h, h, h, h},
+};
+
 // clang-format on
 
-void Mario::paint_mario(pro2::Window& window) const {
+void Mario::paint(pro2::Window& window) const {
     const Pt top_left = {pos_.x - 6, pos_.y - 15};
-    paint_sprite(window, top_left, mario_sprite_normal_, looking_left_);
+    if (id_ == 0) {
+        paint_sprite(window, top_left, mario_sprite_normal_, looking_left_);
+    } else if (id_ == 1) {
+        paint_sprite(window, top_left, luigi_sprite_normal_, looking_left_);
+    }
 }
 
 void Mario::apply_physics_() {

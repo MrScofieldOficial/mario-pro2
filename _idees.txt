@@ -1,4 +1,5 @@
 
 
-que mario 2 sigui luigi
-pantalla partida (si els dos personatges estan separats i no poden apareixer alhora a la pantalla que es divideixi i la meitat dreta sigui un i l'esquerra l'altre)
+pantalla partida (si els dos personatges estan separats i no poden apareixer alhora a la pantalla que es divideixi i la meitat dreta sigui pel mario l'esquerra pel luigi)
+parallax
+colecionable (cafe)

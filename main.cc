@@ -9,9 +9,10 @@ const int ZOOM = 3;
 const int FPS = 48;
 
 int main() {
-    pro2::Window window("Mario Pro 2", WIDTH, HEIGHT, ZOOM);
+    pro2::Window window("Mario & Luigi tornada a la uni", WIDTH, HEIGHT, ZOOM);
     window.set_fps(FPS);
 
+    // void inciar_partida();
     Game game(WIDTH, HEIGHT);
 
     while (window.next_frame() && !game.is_finished()) {

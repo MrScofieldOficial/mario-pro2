@@ -12,6 +12,7 @@ class Mario {
     pro2::Pt speed_ = {0, 0};
     pro2::Pt accel_ = {0, 0};
     int      accel_time_ = 0;
+    int      id_;
 
     bool grounded_ = false;
     bool looking_left_ = false;
@@ -23,14 +24,23 @@ class Mario {
     void apply_physics_();
 
  public:
-    Mario(pro2::Pt pos)
-        : pos_(pos), last_pos_(pos), jump_key_(pro2::Keys::Up), left_key_(pro2::Keys::Left), right_key_(pro2::Keys::Right) {}
+    Mario(pro2::Pt pos, int id)
+        : pos_(pos),
+          last_pos_(pos),
+          jump_key_(pro2::Keys::Up),
+          left_key_(pro2::Keys::Left),
+          right_key_(pro2::Keys::Right),
+          id_(id) {}
 
-    Mario(pro2::Pt pos, char jump_key, char left_key, char right_key)
-        : pos_(pos), last_pos_(pos), jump_key_(jump_key), left_key_(left_key), right_key_(right_key) {}
+    Mario(pro2::Pt pos, char jump_key, char left_key, char right_key, int id)
+        : pos_(pos),
+          last_pos_(pos),
+          jump_key_(jump_key),
+          left_key_(left_key),
+          right_key_(right_key),
+          id_(id) {}
 
-    void paint_mario(pro2::Window& window) const;
-    void paint_luigi(pro2::Window& window) const;
+    void paint(pro2::Window& window) const;
 
     pro2::Pt pos() const {
         return pos_;
