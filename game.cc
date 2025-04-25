@@ -9,10 +9,11 @@ Game::Game(int width, int height)
           Platform(100, 300, 200, 211),
           Platform(0, 200, 250, 261),
           Platform(250, 400, 150, 161),
-          Platform(50, 200, 150, 161),
+          Platform(70, 220, 110, 121),
       },
       finished_(false),
-      paused_(false) {
+      paused_(false),
+      following_(true) {
     for (int i = 1; i < 20; i++) {
         platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 161));
     }
@@ -26,8 +27,22 @@ void Game::process_keys(pro2::Window& window) {
     if (window.is_key_down('r')) {
         // iniciar_partida;
     }
+    // todo fer que hi hagi un cooldown que esperi com 1 seg per poder tornar a canviar
     if (window.is_key_down(80) && !window.was_key_pressed(80)) {
         paused_ = !paused_;  // toggle
+    }
+    // todo implementar el mateix cooldown que al pause
+    if (window.is_key_down(67) && !window.was_key_pressed(67)) {
+        following_ = !following_;  // toggle
+        Pt pos;
+        if (following_) {
+            pos = mario_.pos();
+        } else {
+            pos = luigi_.pos();
+        }
+        pos.x -= window.width() / 2;
+        pos.y -= window.height() / 2;
+        window.set_camera_topleft(pos);
     }
 }
 
@@ -37,7 +52,13 @@ void Game::update_objects(pro2::Window& window) {
 }
 
 void Game::update_camera(pro2::Window& window) {
-    const Pt pos = mario_.pos();
+    Pt pos;
+    if (following_) {
+        pos = mario_.pos();
+    } else {
+        pos = luigi_.pos();
+    }
+
     const Pt cam = window.camera_center();
 
     const int left = cam.x - window.width() / 4;
@@ -87,11 +108,16 @@ void Game::paint(pro2::Window& window) {
     luigi_.paint(window);
 
     //* Pintar recuadre
-    const pro2::Color col = white;
-    const int         left = cam.x - width / 2;
-    const int         right = cam.x + width / 2;
-    const int         top = cam.y - height / 2;
-    const int         bottom = cam.y + height / 2;
+    pro2::Color col;
+    if (following_) {
+        col = red;
+    } else {
+        col = green;
+    }
+    const int left = cam.x - width / 2;
+    const int right = cam.x + width / 2;
+    const int top = cam.y - height / 2;
+    const int bottom = cam.y + height / 2;
     paint_hline(window, left, right, top, col);
     paint_hline(window, left, right, bottom - 1, col);
     paint_vline(window, left, top, bottom, col);

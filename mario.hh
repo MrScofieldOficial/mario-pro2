@@ -16,6 +16,7 @@ class Mario {
 
     bool grounded_ = false;
     bool looking_left_ = false;
+    bool jumping_ = false;
 
     char jump_key_;
     char left_key_;
@@ -71,7 +72,16 @@ class Mario {
 
  private:
     static const std::vector<std::vector<int>> mario_sprite_normal_;
+    static const std::vector<std::vector<int>> mario_sprite_jump_;
+    static const std::vector<std::vector<int>> mario_sprite_run0_;
+    static const std::vector<std::vector<int>> mario_sprite_run1_;
+    static const std::vector<std::vector<int>> mario_sprite_run2_;
+
     static const std::vector<std::vector<int>> luigi_sprite_normal_;
+    static const std::vector<std::vector<int>> luigi_sprite_jump_;
+    static const std::vector<std::vector<int>> luigi_sprite_run0_;
+    static const std::vector<std::vector<int>> luigi_sprite_run1_;
+    static const std::vector<std::vector<int>> luigi_sprite_run2_;
 };
 
 #endif

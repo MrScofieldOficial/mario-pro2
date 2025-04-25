@@ -3,3 +3,5 @@
 pantalla partida (si els dos personatges estan separats i no poden apareixer alhora a la pantalla que es divideixi i la meitat dreta sigui pel mario l'esquerra pel luigi)
 parallax
 colecionable (cafe)
+plataforma (escala)
+crear un altre document per guardar els sprites del mario
