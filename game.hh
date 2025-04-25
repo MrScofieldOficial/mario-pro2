@@ -37,7 +37,7 @@ class Game {
     }
 
  private:
-    static constexpr int sky_blue = 0x3c75de;
+    static constexpr int sky_blue = 0x9389fa;
 };
 
 #endif

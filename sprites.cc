@@ -13,8 +13,10 @@ const int y = pro2::yellow;
 const int f = pro2::black;
 const int g = pro2::green;
 const int h = 0x964807;
-// clang-format off
- const vector<vector<int>> Sprites::mario_sprite_normal_ = {
+const int w = 1;
+
+//* MARIO
+const vector<vector<int>> Sprites::mario_sprite_normal_ = {
     {_, _, _, _, _, _, _, r, r, r, r, r, _, _, _, _, _},
     {_, _, _, _, _, _, r, r, r, r, r, r, r, r, r, _, _},
     {_, _, _, _, _, _, h, h, h, s, s, f, s, _, _, _, _},
@@ -109,6 +111,7 @@ const vector<vector<int>> Sprites::mario_sprite_run2_ = {
     {_, _, _, _, _, _, h, h, h, h, _, _, _, _, _, _, _},
 };
 
+//* LUIGI
 const vector<vector<int>> Sprites::luigi_sprite_normal_ = {
     {_, _, _, _, _, _, g, g, g, g, g, _, _, _, _, _, _},
     {_, _, _, _, _, g, g, g, g, g, g, g, g, g, _, _, _},
@@ -202,3 +205,108 @@ const vector<vector<int>> Sprites::luigi_sprite_run2_ = {
     {_, _, _, _, _, _, b, b, b, h, h, h, _, _, _, _, _},
     {_, _, _, _, _, _, h, h, h, h, _, _, _, _, _, _, _},
 };
+
+//* LLETRES
+const std::map<char, std::vector<std::vector<int>>> Sprites::diccionari = {
+    {'1', {
+        {_, _, w, w, _, _},
+        {_, w, w, w, _, _},
+        {_, _, w, w, _, _},
+        {_, _, w, w, _, _},
+        {_, _, w, w, _, _},
+        {_, _, w, w, _, _},
+        {w, w, w, w, w, w}}
+    },
+    {'2', {
+        {_, w, w, w, w, w, _},
+        {w, w, _, _, _, w, w},
+        {_, _, _, _, w, w, w},
+        {_, _, w, w, w, w, _},
+        {_, w, w, w, w, _, _},
+        {w, w, w, _, _, _, _},
+        {w, w, w, w, w, w, w}}
+    },
+    {'3', {
+        {w, w, w, w, w, w, w},
+        {_, _, _, _, w, w, _},
+        {_, _, _, w, w, _, _},
+        {_, _, w, w, w, w, _},
+        {_, _, _, _, _, w, w},
+        {w, w, _, _, _, w, w},
+        {_, w, w, w, w, w, _}}
+    },
+    {'4', {
+        {_, _, _, w, w, w, _},
+        {_, _, w, w, w, w, _},
+        {_, w, w, _, w, w, _},
+        {w, w, _, _, w, w, _},
+        {w, w, w, w, w, w, w},
+        {_, _, _, _, w, w, _},
+        {_, _, _, _, w, w, _}}
+    },
+    {'5', {
+        {w, w, w, w, w, w, _},
+        {w, w, _, _, _, _, _},
+        {w, w, w, w, w, w, _},
+        {_, _, _, _, _, w, w},
+        {_, _, _, _, _, w, w},
+        {w, w, _, _, _, w, w},
+        {_, w, w, w, w, w, _}}
+    },
+    {'6', {
+        {_, _, w, w, w, w, w},
+        {_, w, w, _, _, _, _},
+        {w, w, _, _, _, _, _},
+        {w, w, w, w, w, w, _},
+        {w, w, _, _, _, w, w},
+        {w, w, _, _, _, w, w},
+        {_, w, w, w, w, w, _}}
+    },
+    {'7', {
+        {w, w, w, w, w, w, w},
+        {w, w, _, _, _, w, w},
+        {_, _, _, _, w, w, _},
+        {_, _, _, w, w, _, _},
+        {_, _, w, w, _, _, _},
+        {_, _, w, w, _, _, _},
+        {_, _, w, w, _, _, _}}
+    },
+    {'8', {
+        {_, w, w, w, w, w, _},
+        {w, w, _, _, _, w, w},
+        {w, w, _, _, _, w, w},
+        {_, w, w, w, w, w, _},
+        {w, w, _, _, _, w, w},
+        {w, w, _, _, _, w, w},
+        {_, w, w, w, w, w, _}}
+    },
+    {'9', {
+        {_, w, w, w, w, w, _},
+        {w, w, _, _, _, w, w},
+        {w, w, _, _, _, w, w},
+        {_, w, w, w, w, w, w},
+        {_, _, _, _, _, w, w},
+        {_, _, _, _, w, w, },
+        {_, w, w, w, w, _, _}}
+    },
+    {'0', {
+        {_, _, w, w, w, _, _},
+        {_, w, _, _, w, w, _},
+        {w, w, _, _, _, w, w},
+        {w, w, _, _, _, w, w},
+        {w, w, _, _, _, w, w},
+        {_, w, w, _, _, w, _},
+        {_, _, w, w, w, _, _}}
+    },
+    {'A', {
+        {_, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _}}
+    },
+};
+
+//* PLATAFORMES

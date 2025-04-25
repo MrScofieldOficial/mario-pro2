@@ -1,20 +1,22 @@
 #include "game.hh"
 #include "utils.hh"
 using namespace pro2;
+const int k = 16;
 
 Game::Game(int width, int height)
     : mario_({width / 2, 150}, 0),
       luigi_({width / 2 - 30, 150}, 'W', 'A', 'D', 1),
       platforms_{
-          Platform(100, 300, 200, 211), Platform(0, 200, 250, 261),  Platform(250, 400, 150, 161),
-          Platform(70, 220, 10, 121),   Platform(300, 320, 10, 161),
+          Platform(9 * k, 27 * k, 18 * k, 19 * k),  Platform(0 * k, 18 * k, 22 * k, 23 * k),
+          Platform(23 * k, 36 * k, 14 * k, 15 * k), Platform(6 * k, 20 * k, 1 * k, 11 * k),
+          Platform(27 * k, 28 * k, 1 * k, 14 * k),
       },
       finished_(false),
       paused_(false),
       following_(true),
       cooldown_toggles_(0) {
     for (int i = 1; i < 20; i++) {
-        platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 161));
+        platforms_.push_back(Platform(23 * k + i * 18 * k, 36 * k + i * 18 * k, 14 * k, 15 * k));
     }
 }
 

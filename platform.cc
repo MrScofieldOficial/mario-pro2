@@ -7,15 +7,34 @@ const int b = 0xc84d0b;
 const int _ = 0;
 
 // clang-format off
+// const vector<vector<int>> Platform::brick_platform_texture_ = {
+//  {b, b, b, b, b, b, _}, 
+// 	{b, b, b, b, b, b, _}, 
+// 	{b, b, b, b, b, b, _}, 
+// 	{_, _, _, _, _, _, _},
+//  {b, b, b, _, b, b, b}, 
+// 	{b, b, b, _, b, b, b}, 
+// 	{b, b, b, _, b, b, b}, 
+// 	{_, _, _, _, _, _, _},
+// };
+
 const vector<vector<int>> Platform::brick_platform_texture_ = {
-    {b, b, b, b, b, b, _}, 
-	{b, b, b, b, b, b, _}, 
-	{b, b, b, b, b, b, _}, 
-	{_, _, _, _, _, _, _},
-    {b, b, b, _, b, b, b}, 
-	{b, b, b, _, b, b, b}, 
-	{b, b, b, _, b, b, b}, 
-	{_, _, _, _, _, _, _},
+    {b, b, b, b, b, b, b, _, b, b, b, b, b, b, b, _},
+    {b, b, b, b, b, b, b, _, b, b, b, b, b, b, b, _},
+    {b, b, b, b, b, b, b, _, b, b, b, b, b, b, b, _},
+    {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+    {b, b, b, _, b, b, b, b, b, b, b, _, b, b, b, b},
+    {b, b, b, _, b, b, b, b, b, b, b, _, b, b, b, b},
+    {b, b, b, _, b, b, b, b, b, b, b, _, b, b, b, b},
+    {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+    {b, b, b, b, b, b, b, _, b, b, b, b, b, b, b, _},
+    {b, b, b, b, b, b, b, _, b, b, b, b, b, b, b, _},
+    {b, b, b, b, b, b, b, _, b, b, b, b, b, b, b, _},
+    {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+    {b, b, b, _, b, b, b, b, b, b, b, _, b, b, b, b},
+    {b, b, b, _, b, b, b, b, b, b, b, _, b, b, b, b},
+    {b, b, b, _, b, b, b, b, b, b, b, _, b, b, b, b},
+    {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
 };
 // clang-format on
 

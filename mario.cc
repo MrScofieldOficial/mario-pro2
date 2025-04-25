@@ -58,6 +58,7 @@ void Mario::apply_physics_() {
 
 void Mario::jump() {
     if (grounded_) {
+        speed_.y = -1;
         accel_.y = -6;
         grounded_ = false;
         accel_time_ = 2;
