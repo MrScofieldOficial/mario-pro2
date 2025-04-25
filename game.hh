@@ -14,6 +14,7 @@ class Game {
     bool finished_;
     bool paused_;
     bool following_;
+    int  cooldown_toggles_;
 
     void process_keys(pro2::Window& window);
     void update_objects(pro2::Window& window);
@@ -25,6 +26,7 @@ class Game {
     void update(pro2::Window& window);
     void paint(pro2::Window& window);
     void pause(pro2::Window& window);
+    void reiniciar(pro2::Window& window);
 
     bool is_paused() const {
         return paused_;
@@ -33,6 +35,10 @@ class Game {
     bool is_finished() const {
         return finished_;
     }
+
+    // bool is_restared() const {
+    //     return restart_;
+    // }
 
  private:
     static constexpr int sky_blue = 0x5c94fc;

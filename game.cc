@@ -13,10 +13,18 @@ Game::Game(int width, int height)
       },
       finished_(false),
       paused_(false),
-      following_(true) {
+      following_(true),
+      cooldown_toggles_(0) {
     for (int i = 1; i < 20; i++) {
         platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 161));
     }
+}
+
+void Game::reiniciar(pro2::Window& window) {
+    const int width = window.width();
+    const int height = window.height();
+    mario_.set_pos(mario_.get_original_pos());
+    luigi_.set_pos(luigi_.get_original_pos());
 }
 
 void Game::process_keys(pro2::Window& window) {
@@ -24,15 +32,17 @@ void Game::process_keys(pro2::Window& window) {
         finished_ = true;
         return;
     }
-    if (window.is_key_down('r')) {
-        // iniciar_partida;
+    if (window.is_key_down('R')) {
+        reiniciar(window);
     }
-    // todo fer que hi hagi un cooldown que esperi com 1 seg per poder tornar a canviar
-    if (window.is_key_down(80) && !window.was_key_pressed(80)) {
+    if (window.is_key_down(80) && !window.was_key_pressed(80) && cooldown_toggles_ > 15) {
+        cooldown_toggles_ = 0;
         paused_ = !paused_;  // toggle
     }
-    // todo implementar el mateix cooldown que al pause
-    if (window.is_key_down(67) && !window.was_key_pressed(67)) {
+
+    ++cooldown_toggles_;
+    if (window.is_key_down(67) && !window.was_key_pressed(67) && cooldown_toggles_ > 15) {
+        cooldown_toggles_ = 0;
         following_ = !following_;  // toggle
         Pt pos;
         if (following_) {

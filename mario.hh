@@ -8,7 +8,7 @@
 
 class Mario {
  private:
-    pro2::Pt pos_, last_pos_;
+    pro2::Pt pos_, last_pos_, original_pos_;
     pro2::Pt speed_ = {0, 0};
     pro2::Pt accel_ = {0, 0};
     int      accel_time_ = 0;
@@ -28,6 +28,7 @@ class Mario {
     Mario(pro2::Pt pos, int id)
         : pos_(pos),
           last_pos_(pos),
+          original_pos_(pos),
           jump_key_(pro2::Keys::Up),
           left_key_(pro2::Keys::Left),
           right_key_(pro2::Keys::Right),
@@ -36,6 +37,7 @@ class Mario {
     Mario(pro2::Pt pos, char jump_key, char left_key, char right_key, int id)
         : pos_(pos),
           last_pos_(pos),
+          original_pos_(pos),
           jump_key_(jump_key),
           left_key_(left_key),
           right_key_(right_key),
@@ -66,22 +68,14 @@ class Mario {
         set_grounded(!grounded_);
     }
 
+    void     set_pos(pro2::Pt new_pos);
+    pro2::Pt get_original_pos();
+
     void jump();
 
     void update(pro2::Window& window, const std::vector<Platform>& platforms);
 
  private:
-    static const std::vector<std::vector<int>> mario_sprite_normal_;
-    static const std::vector<std::vector<int>> mario_sprite_jump_;
-    static const std::vector<std::vector<int>> mario_sprite_run0_;
-    static const std::vector<std::vector<int>> mario_sprite_run1_;
-    static const std::vector<std::vector<int>> mario_sprite_run2_;
-
-    static const std::vector<std::vector<int>> luigi_sprite_normal_;
-    static const std::vector<std::vector<int>> luigi_sprite_jump_;
-    static const std::vector<std::vector<int>> luigi_sprite_run0_;
-    static const std::vector<std::vector<int>> luigi_sprite_run1_;
-    static const std::vector<std::vector<int>> luigi_sprite_run2_;
 };
 
 #endif

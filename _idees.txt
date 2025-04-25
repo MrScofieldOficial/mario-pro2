@@ -5,3 +5,7 @@ parallax
 colecionable (cafe)
 plataforma (escala)
 crear un altre document per guardar els sprites del mario
+fer sprites de lletres
+salt doble
+no poder travessar plataformes des de baix
+pantalla d'inici
