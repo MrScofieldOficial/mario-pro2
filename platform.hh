@@ -6,10 +6,10 @@
 
 class Platform {
  private:
- 	pro2::Pt topleft_, bottomright_;
-    int left_, right_, top_, bottom_;
+    pro2::Pt topleft_, bottomright_;
+    int      left_, right_, top_, bottom_;
 
-	static const std::vector<std::vector<int>> platform_texture_;
+    static const std::vector<std::vector<int>> brick_platform_texture_;
 
  public:
     Platform() : left_(0), right_(0), top_(0), bottom_(0) {}
@@ -22,10 +22,25 @@ class Platform {
 
     void paint(pro2::Window& window) const;
     bool has_crossed_floor_downwards(pro2::Pt plast, pro2::Pt pcurr) const;
+    bool has_crossed_floor_upwards(pro2::Pt plast, pro2::Pt pcurr) const;
+    bool has_crossed_right(pro2::Pt plast, pro2::Pt pcurr) const;
+    bool has_crossed_left(pro2::Pt plast, pro2::Pt pcurr) const;
     bool is_pt_inside(pro2::Pt pt) const;
 
     int top() const {
         return top_;
+    }
+
+    int bottom() const {
+        return bottom_;
+    }
+
+    int right() const {
+        return right_;
+    }
+
+    int left() const {
+        return left_;
     }
 
     pro2::Rect get_rect() const {

@@ -36,12 +36,8 @@ class Game {
         return finished_;
     }
 
-    // bool is_restared() const {
-    //     return restart_;
-    // }
-
  private:
-    static constexpr int sky_blue = 0x5c94fc;
+    static constexpr int sky_blue = 0x3c75de;
 };
 
 #endif

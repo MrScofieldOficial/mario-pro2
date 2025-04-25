@@ -4,8 +4,6 @@ pantalla partida (si els dos personatges estan separats i no poden apareixer alh
 parallax
 colecionable (cafe)
 plataforma (escala)
-crear un altre document per guardar els sprites del mario
-fer sprites de lletres
+fer sprites de lletres i poder posar diversos tipos de plataformes (diccionari de sprites)
 salt doble
-no poder travessar plataformes des de baix
 pantalla d'inici

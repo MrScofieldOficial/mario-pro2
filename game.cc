@@ -6,10 +6,8 @@ Game::Game(int width, int height)
     : mario_({width / 2, 150}, 0),
       luigi_({width / 2 - 30, 150}, 'W', 'A', 'D', 1),
       platforms_{
-          Platform(100, 300, 200, 211),
-          Platform(0, 200, 250, 261),
-          Platform(250, 400, 150, 161),
-          Platform(70, 220, 110, 121),
+          Platform(100, 300, 200, 211), Platform(0, 200, 250, 261),  Platform(250, 400, 150, 161),
+          Platform(70, 220, 10, 121),   Platform(300, 320, 10, 161),
       },
       finished_(false),
       paused_(false),
@@ -25,6 +23,12 @@ void Game::reiniciar(pro2::Window& window) {
     const int height = window.height();
     mario_.set_pos(mario_.get_original_pos());
     luigi_.set_pos(luigi_.get_original_pos());
+    paused_ = false;
+    following_ = true;
+    Pt pos = mario_.pos();
+    pos.x -= window.width() / 2;
+    pos.y -= window.height() / 2;
+    window.set_camera_topleft(pos);
 }
 
 void Game::process_keys(pro2::Window& window) {

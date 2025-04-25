@@ -105,9 +105,16 @@ void Mario::update(pro2::Window& window, const vector<Platform>& platforms) {
     set_grounded(false);
 
     for (const Platform& platform : platforms) {
-        if (platform.has_crossed_floor_downwards(last_pos_, pos_)) {
+        if (platform.has_crossed_floor_upwards(last_pos_, pos_)) {
+            set_y(platform.bottom() + 16);
+            speed_.y = 1;
+        } else if (platform.has_crossed_floor_downwards(last_pos_, pos_)) {
             set_grounded(true);
             set_y(platform.top());
+        } else if (platform.has_crossed_right(last_pos_, pos_)) {
+            set_x(platform.right() + 6);
+        } else if (platform.has_crossed_left(last_pos_, pos_)) {
+            set_x(platform.left() - 10);
         }
     }
 }

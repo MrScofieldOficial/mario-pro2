@@ -53,6 +53,10 @@ class Mario {
         pos_.y = y;
     }
 
+    void set_x(int x) {
+        pos_.x = x;
+    }
+
     bool is_grounded() const {
         return grounded_;
     }
