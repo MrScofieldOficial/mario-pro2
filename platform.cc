@@ -19,21 +19,21 @@ const int _ = 0;
 // };
 
 const vector<vector<int>> Platform::brick_platform_texture_ = {
-    {b, b, b, b, b, b, b, _, b, b, b, b, b, b, b, _},
-    {b, b, b, b, b, b, b, _, b, b, b, b, b, b, b, _},
-    {b, b, b, b, b, b, b, _, b, b, b, b, b, b, b, _},
+    {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
+    {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
+    {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
-    {b, b, b, _, b, b, b, b, b, b, b, _, b, b, b, b},
-    {b, b, b, _, b, b, b, b, b, b, b, _, b, b, b, b},
-    {b, b, b, _, b, b, b, b, b, b, b, _, b, b, b, b},
+    {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
+    {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
+    {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
-    {b, b, b, b, b, b, b, _, b, b, b, b, b, b, b, _},
-    {b, b, b, b, b, b, b, _, b, b, b, b, b, b, b, _},
-    {b, b, b, b, b, b, b, _, b, b, b, b, b, b, b, _},
+    {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
+    {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
+    {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
-    {b, b, b, _, b, b, b, b, b, b, b, _, b, b, b, b},
-    {b, b, b, _, b, b, b, b, b, b, b, _, b, b, b, b},
-    {b, b, b, _, b, b, b, b, b, b, b, _, b, b, b, b},
+    {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
+    {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
+    {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
 };
 // clang-format on

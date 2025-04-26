@@ -4,12 +4,14 @@ using namespace pro2;
 const int k = 16;
 
 Game::Game(int width, int height)
-    : mario_({width / 2, 150}, 0),
-      luigi_({width / 2 - 30, 150}, 'W', 'A', 'D', 1),
+    : mario_({width / 2, 14 * k}, 0),
+      luigi_({width / 2 - 3 * k, 14 * k}, 'W', 'A', 'D', 1),
+      cafe_({27 * k, 12 * k}),
+      cafe2_({26 * k, 13 * k}),
       platforms_{
           Platform(9 * k, 27 * k, 18 * k, 19 * k),  Platform(0 * k, 18 * k, 22 * k, 23 * k),
-          Platform(23 * k, 36 * k, 14 * k, 15 * k), Platform(6 * k, 20 * k, 1 * k, 11 * k),
-          Platform(27 * k, 28 * k, 1 * k, 14 * k),
+          Platform(23 * k, 36 * k, 14 * k, 15 * k), Platform(5 * k, 24 * k, 9 * k, 10 * k),
+          Platform(27 * k, 28 * k, 13 * k, 14 * k),
       },
       finished_(false),
       paused_(false),
@@ -120,6 +122,8 @@ void Game::paint(pro2::Window& window) {
         p.paint(window);
     }
 
+    cafe_.paint(window);
+    cafe2_.paint(window);
     mario_.paint(window);
     luigi_.paint(window);
 
@@ -138,4 +142,10 @@ void Game::paint(pro2::Window& window) {
     paint_hline(window, left, right, bottom - 1, col);
     paint_vline(window, left, top, bottom, col);
     paint_vline(window, right - 1, top, bottom, col);
+
+    //todo fer que la pantalla de pausa posi el joc més fosc (rectangle negre translucid) (no se com fer que sigui translucid)
+    // if (paused_) {
+    //     Rect pause = {left, top, right, bottom};
+    //     paint_rect(window, pause, 0x47FFFF47);
+    // }
 }

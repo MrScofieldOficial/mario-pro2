@@ -7,3 +7,6 @@ plataforma (escala)
 fer sprites de lletres i poder posar diversos tipos de plataformes (diccionari de sprites)
 salt doble
 pantalla d'inici
+pantalla de pausa
+blocs d'interrogant interactuables
+afegir linies clares a la part superior de les plataformes

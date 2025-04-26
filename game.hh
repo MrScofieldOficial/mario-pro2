@@ -2,6 +2,7 @@
 #define GAME_HH
 
 #include <vector>
+#include "coffee.hh"
 #include "mario.hh"
 #include "platform.hh"
 #include "window.hh"
@@ -9,6 +10,8 @@
 class Game {
     Mario                 mario_;
     Mario                 luigi_;
+    Coffee                cafe_;
+    Coffee                cafe2_;
     std::vector<Platform> platforms_;
 
     bool finished_;
