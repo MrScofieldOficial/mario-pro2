@@ -10,14 +10,14 @@
 class Game {
     Mario                 mario_;
     Mario                 luigi_;
-    Coffee                cafe_;
-    Coffee                cafe2_;
+    std::vector<Coffee>   cafes_;
     std::vector<Platform> platforms_;
 
     bool finished_;
     bool paused_;
     bool following_;
-    int  cooldown_toggles_;
+    int  cooldown_keys_;
+    int total_coffees_;
 
     void process_keys(pro2::Window& window);
     void update_objects(pro2::Window& window);

@@ -6,19 +6,27 @@ const int k = 16;
 Game::Game(int width, int height)
     : mario_({width / 2, 14 * k}, 0),
       luigi_({width / 2 - 3 * k, 14 * k}, 'W', 'A', 'D', 1),
-      cafe_({27 * k, 12 * k}),
-      cafe2_({26 * k, 13 * k}),
       platforms_{
           Platform(9 * k, 27 * k, 18 * k, 19 * k),  Platform(0 * k, 18 * k, 22 * k, 23 * k),
           Platform(23 * k, 36 * k, 14 * k, 15 * k), Platform(5 * k, 24 * k, 9 * k, 10 * k),
           Platform(27 * k, 28 * k, 13 * k, 14 * k),
       },
+      cafes_ {
+        Coffee ({27 * k, 12 * k}), 
+        Coffee({26 * k, 13 * k}),
+      },
       finished_(false),
       paused_(false),
       following_(true),
-      cooldown_toggles_(0) {
+      cooldown_keys_(0),
+      total_coffees_(0) {
     for (int i = 1; i < 20; i++) {
         platforms_.push_back(Platform(23 * k + i * 18 * k, 36 * k + i * 18 * k, 14 * k, 15 * k));
+    }
+    for (int i = 0; i < 4; i++)
+    {
+        
+        cafes_.push_back(Coffee({19 * k + i * k, 17 * k}));
     }
 }
 
@@ -33,6 +41,11 @@ void Game::reiniciar(pro2::Window& window) {
     pos.x -= window.width() / 2;
     pos.y -= window.height() / 2;
     window.set_camera_topleft(pos);
+
+    for (Coffee& c : cafes_){
+        c.colected = false;
+    }
+    total_coffees_ = 0;
 }
 
 void Game::process_keys(pro2::Window& window) {
@@ -40,17 +53,17 @@ void Game::process_keys(pro2::Window& window) {
         finished_ = true;
         return;
     }
-    if (window.is_key_down('R')) {
+    if (window.is_key_down('R') && cooldown_keys_ > 15) {
+        cooldown_keys_ = 0;
         reiniciar(window);
     }
-    if (window.is_key_down(80) && !window.was_key_pressed(80) && cooldown_toggles_ > 15) {
-        cooldown_toggles_ = 0;
+    if (window.is_key_down(80) && cooldown_keys_ > 15) {
+        cooldown_keys_ = 0;
         paused_ = !paused_;  // toggle
     }
-
-    ++cooldown_toggles_;
-    if (window.is_key_down(67) && !window.was_key_pressed(67) && cooldown_toggles_ > 15) {
-        cooldown_toggles_ = 0;
+    ++cooldown_keys_;
+    if (window.is_key_down(67) && cooldown_keys_ > 15) {
+        cooldown_keys_ = 0;
         following_ = !following_;  // toggle
         Pt pos;
         if (following_) {
@@ -67,6 +80,9 @@ void Game::process_keys(pro2::Window& window) {
 void Game::update_objects(pro2::Window& window) {
     mario_.update(window, platforms_);
     luigi_.update(window, platforms_);
+    // for (Coffee& c: cafes_) {
+    //     c.update(window, mario_.pos(), luigi_.pos());
+    // }
 }
 
 void Game::update_camera(pro2::Window& window) {
@@ -121,9 +137,12 @@ void Game::paint(pro2::Window& window) {
     for (const Platform& p : platforms_) {
         p.paint(window);
     }
-
-    cafe_.paint(window);
-    cafe2_.paint(window);
+    
+    for (Coffee& c : cafes_){
+        c.update(window, mario_.pos(), luigi_.pos(), total_coffees_);
+        if (!c.colected)
+            c.paint(window);
+    }
     mario_.paint(window);
     luigi_.paint(window);
 

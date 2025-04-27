@@ -15,7 +15,6 @@ void Mario::paint(pro2::Window& window) const {
             int frame = window.frame_count();
             int sprite_id = (frame % 3);
             paint_sprite(window, top_left, Sprites::mario_sprites_run_.at(sprite_id), looking_left_);
-
         }
 
     } else if (id_ == 1) {
@@ -23,18 +22,16 @@ void Mario::paint(pro2::Window& window) const {
             paint_sprite(window, top_left, Sprites::luigi_sprite_jump_, looking_left_);
         } else if (!window.is_key_down(left_key_) && !window.is_key_down(right_key_)) {
             paint_sprite(window, top_left, Sprites::luigi_sprite_normal_, looking_left_);
-        } else if (window.frame_count() % 3 == 0) {
-            paint_sprite(window, top_left, Sprites::luigi_sprite_run0_, looking_left_);
-        } else if (window.frame_count() % 3 == 1) {
-            paint_sprite(window, top_left, Sprites::luigi_sprite_run1_, looking_left_);
-        } else if (window.frame_count() % 3 == 2) {
-            paint_sprite(window, top_left, Sprites::luigi_sprite_run2_, looking_left_);
+        } else {
+            int frame = window.frame_count();
+            int sprite_id = (frame % 3);
+            paint_sprite(window, top_left, Sprites::luigi_sprites_run_.at(sprite_id), looking_left_);
         }
     }
 }
 
 void Mario::apply_physics_() {
-    if (grounded_) {
+    if (grounded_) {    
         jumping_ = false;
         speed_.y = 0;
         accel_.y = 0;

@@ -3,8 +3,10 @@
 
 #include <iostream>
 #include <vector>
+#include "coffee.hh"
 #include "platform.hh"
 #include "window.hh"
+#include "utils.hh"
 
 class Mario {
  private:
