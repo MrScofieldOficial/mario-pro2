@@ -20,15 +20,31 @@ Game::Game(int width, int height)
       following_(true),
       cooldown_keys_(0),
       total_coffees_(0) {
-    for (int i = 1; i < 20; i++) {
-        platforms_.push_back(Platform(23 * k + i * 18 * k, 36 * k + i * 18 * k, 14 * k, 15 * k));
-    }
-    for (int i = 0; i < 4; i++)
-    {
+        for (int i = 1; i < 20; i++) {
+            platforms_.push_back(Platform(23 * k + i * 18 * k, 36 * k + i * 18 * k, 14 * k, 15 * k));
+        }
+        for (int i = 0; i < 4; i++) {
+            cafes_.push_back(Coffee({19 * k + i * k, 17 * k}));
+        }
         
-        cafes_.push_back(Coffee({19 * k + i * k, 17 * k}));
+        add_coffees(cafes_, 38 * k, 9 * k, 5 * k, -2 * k);
+        add_coffees(cafes_, 18 * k, 8 * k, 5 * k, 0, 6);
+      }
+
+//todo preguntar com funciona i si ho puc afegir o es massa avançat per pro2
+void Game::add_coffees(std::vector<Coffee>& cafes_, int center_x, int center_y, int width, int height, int num) {
+    for (int i = 0; i < num; ++i) {
+        // Calculate the x position based on the number of coins
+        float normalized_x = (static_cast<float>(i) / (num - 1)) * 2.0f - 1.0f;  // Normalize i to range [-1, 1]
+        int x = center_x + (normalized_x * (width / 2));  // Spread coins over width
+        
+        // Calculate the y position to form the arch
+        int y = center_y - (normalized_x * normalized_x * height);  // Arch height
+        
+        cafes_.push_back(Coffee({x, y}));
     }
 }
+
 
 void Game::reiniciar(pro2::Window& window) {
     const int width = window.width();
@@ -161,6 +177,8 @@ void Game::paint(pro2::Window& window) {
     paint_hline(window, left, right, bottom - 1, col);
     paint_vline(window, left, top, bottom, col);
     paint_vline(window, right - 1, top, bottom, col);
+
+    paint_num_of_coffee(window, total_coffees_, cam);
 
     //todo fer que la pantalla de pausa posi el joc més fosc (rectangle negre translucid) (no se com fer que sigui translucid)
     // if (paused_) {

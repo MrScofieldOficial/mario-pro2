@@ -6,6 +6,7 @@
 #include "mario.hh"
 #include "platform.hh"
 #include "window.hh"
+#include "ui.hh"
 
 class Game {
     Mario                 mario_;
@@ -38,6 +39,8 @@ class Game {
     bool is_finished() const {
         return finished_;
     }
+
+    void add_coffees(std::vector<Coffee>& cafes_, int center_x, int center_y, int width, int height, int num = 5);
 
  private:
     static constexpr int sky_blue = 0x9389fa;
