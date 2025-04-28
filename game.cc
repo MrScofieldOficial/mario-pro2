@@ -9,7 +9,7 @@ Game::Game(int width, int height)
       platforms_{
           Platform(9 * k, 27 * k, 18 * k, 19 * k),  Platform(0 * k, 18 * k, 22 * k, 23 * k),
           Platform(23 * k, 36 * k, 14 * k, 15 * k), Platform(5 * k, 24 * k, 9 * k, 10 * k),
-          Platform(27 * k, 28 * k, 13 * k, 14 * k),
+          Platform(27 * k, 28 * k, 13 * k, 14 * k), 
       },
       cafes_ {
         Coffee ({27 * k, 12 * k}), 
@@ -20,7 +20,8 @@ Game::Game(int width, int height)
       following_(true),
       cooldown_keys_(0),
       total_coffees_(0),
-      win_condition_(false) {
+      win_condition_(false),
+      game_over_(false) {
         for (int i = 1; i < 20; i++) {
             platforms_.push_back(Platform(23 * k + i * 18 * k, 36 * k + i * 18 * k, 14 * k, 15 * k));
             add_coffees(cafes_, 20 + 18 * i, 9, 5, -2, 5);
@@ -54,14 +55,15 @@ void Game::reiniciar(pro2::Window& window) {
     paused_ = false;
     following_ = true;
     Pt pos = mario_.pos();
-    pos.x -= window.width() / 2;
-    pos.y -= window.height() / 2;
+    pos.x -= window.width() / 3;
+    pos.y -= window.height() / 3;
     window.set_camera_topleft(pos);
 
     for (Coffee& c : cafes_){
         c.colected = false;
     }
     total_coffees_ = 0;
+    game_over_ = false;
 }
 
 void Game::process_keys(pro2::Window& window) {
@@ -101,6 +103,9 @@ void Game::process_keys(pro2::Window& window) {
 void Game::update_objects(pro2::Window& window) {
     mario_.update(window, platforms_);
     luigi_.update(window, platforms_);
+    if ((mario_.pos().y > 23 * k) || luigi_.pos().y > 23 * k) {
+        game_over_ = true;
+    }
 }
 
 void Game::update_camera(pro2::Window& window) {
@@ -114,9 +119,9 @@ void Game::update_camera(pro2::Window& window) {
     const Pt cam = window.camera_center();
     const int left = cam.x - window.width() / 4;
     const int right = cam.x + window.width() / 4;
-    const int top = cam.y - window.height() / 4;
     const int bottom = cam.y + window.height() / 4;
-
+    const int top = cam.y - window.height() / 4;
+    
     int dx = 0, dy = 0;
     if (pos.x > right) {
         dx = pos.x - right;
@@ -127,6 +132,13 @@ void Game::update_camera(pro2::Window& window) {
         dy = pos.y - top;
     } else if (pos.y > bottom) {
         dy = pos.y - bottom;
+    }
+
+    if (mario_.pos().y > 18 * k) {
+        dy = 0;
+    } 
+    if (cam.y > 208) {
+        window.set_camera_topleft({cam.x - window.width() / 2, 208 - window.height() / 2});
     }
 
     //* Per mantenir el mario al centre de la pantalla
@@ -182,6 +194,10 @@ void Game::paint(pro2::Window& window) {
     //todo fer que la pantalla de pausa posi el joc més fosc (rectangle negre translucid) (no se com fer que sigui translucid)
     if (paused_ && !win_condition_) {
         paint_pause_screen(window, cam);
+    }
+    if (game_over_) {
+        paused_ = true;
+        paint_game_over_screen(window, cam);
     }
     if (win_condition_) {
         paused_ = true;

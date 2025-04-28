@@ -20,6 +20,7 @@ class Game {
     int  cooldown_keys_;
     int total_coffees_;
     bool win_condition_;
+    bool game_over_;
 
     void process_keys(pro2::Window& window);
     void update_objects(pro2::Window& window);
