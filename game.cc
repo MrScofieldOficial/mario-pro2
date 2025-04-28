@@ -22,20 +22,27 @@ Game::Game(int width, int height)
       total_coffees_(0) {
         for (int i = 1; i < 20; i++) {
             platforms_.push_back(Platform(23 * k + i * 18 * k, 36 * k + i * 18 * k, 14 * k, 15 * k));
+            add_coffees(cafes_, 20 + 18 * i, 9, 5, -2, 5);
         }
-        for (int i = 0; i < 4; i++) {
-            cafes_.push_back(Coffee({19 * k + i * k, 17 * k}));
-        }
+        // for (int i = 0; i < 4; i++) {
+        //     cafes_.push_back(Coffee({19 * k + i * k, 17 * k}));
+        // }
+        add_coffees(cafes_, 18 , 8, 5, 0, 5);
+        add_coffees(cafes_, 21, 17, 4, 0, 4);
         
-        add_coffees(cafes_, 38 * k, 9 * k, 5 * k, -2 * k);
-        add_coffees(cafes_, 18 * k, 8 * k, 5 * k, 0, 6);
+
+
       }
 
 //todo preguntar com funciona i si ho puc afegir o es massa avançat per pro2
 void Game::add_coffees(std::vector<Coffee>& cafes_, int center_x, int center_y, int width, int height, int num) {
+    center_x *= k;
+    center_y *= k;
+    width *= k;
+    height *= k;
     for (int i = 0; i < num; ++i) {
         // Calculate the x position based on the number of coins
-        float normalized_x = (static_cast<float>(i) / (num - 1)) * 2.0f - 1.0f;  // Normalize i to range [-1, 1]
+        float normalized_x = (i / (num - 1.0)) * 2.0 - 1.0;  // Normalize i to range [-1, 1]
         int x = center_x + (normalized_x * (width / 2));  // Spread coins over width
         
         // Calculate the y position to form the arch
@@ -96,9 +103,6 @@ void Game::process_keys(pro2::Window& window) {
 void Game::update_objects(pro2::Window& window) {
     mario_.update(window, platforms_);
     luigi_.update(window, platforms_);
-    // for (Coffee& c: cafes_) {
-    //     c.update(window, mario_.pos(), luigi_.pos());
-    // }
 }
 
 void Game::update_camera(pro2::Window& window) {

@@ -21,6 +21,7 @@ class Platform {
         : left_(left), right_(right), top_(top), bottom_(bottom) {}
 
     void paint(pro2::Window& window) const;
+    void paint_top(pro2::Window& window) const;
     bool has_crossed_floor_downwards(pro2::Pt plast, pro2::Pt pcurr) const;
     bool has_crossed_floor_upwards(pro2::Pt plast, pro2::Pt pcurr) const;
     bool has_crossed_right(pro2::Pt plast, pro2::Pt pcurr) const;

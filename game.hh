@@ -42,7 +42,8 @@ class Game {
 
     void add_coffees(std::vector<Coffee>& cafes_, int center_x, int center_y, int width, int height, int num = 5);
 
- private:
+    private:
+    // canviar el color de la funcio :paint_hline_top_platforms (a utils) si canvio el color del cel;
     static constexpr int sky_blue = 0x9389fa;
 };
 

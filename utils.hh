@@ -19,6 +19,17 @@ namespace pro2 {
 void paint_hline(pro2::Window& window, int xini, int xfin, int y, pro2::Color color = pro2::white);
 
 /**
+ * @brief Dibuja una línea horizontal en la ventana si el píxel de arriba es de color cielo.
+ *
+ * @param window Ventana en la que se dibuja la línea.
+ * @param xini Coordenada x inicial.
+ * @param xfin Coordenada x final.
+ * @param y Coordenada y.
+ * @param color Color de la línea (opcional, si no se pone se asume `white`).
+ */
+void paint_hline_top_platforms(pro2::Window& window, int xini, int xfin, int y, pro2::Color color = 0xfcd8a9);
+
+/**
  * @brief Dibuja una línea vertical en la ventana.
  *
  * @param window Ventana en la que se dibuja la línea.

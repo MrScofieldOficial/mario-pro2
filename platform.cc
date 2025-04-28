@@ -1,4 +1,5 @@
 #include "platform.hh"
+#include "utils.hh"
 using namespace std;
 
 using pro2::Color;
@@ -47,6 +48,7 @@ void Platform::paint(pro2::Window& window) const {
                              brick_platform_texture_[(i - top_ - 1) % xsz][(j - left_) % ysz]);
         }
     }
+    paint_hline(window, left_, right_, top_ + 1, 0xfcd8a9);
 }
 
 bool Platform::has_crossed_floor_downwards(pro2::Pt plast, pro2::Pt pcurr) const {
@@ -61,13 +63,13 @@ bool Platform::has_crossed_floor_upwards(pro2::Pt plast, pro2::Pt pcurr) const {
 }
 
 bool Platform::has_crossed_right(pro2::Pt plast, pro2::Pt pcurr) const {
-    pcurr.x -= 6;
+    pcurr.x -= 4;
     return left_ <= pcurr.x && pcurr.x <= right_ && top_ <= pcurr.y && pcurr.y <= bottom_ &&
            plast.x > right_;
 }
 
 bool Platform::has_crossed_left(pro2::Pt plast, pro2::Pt pcurr) const {
-    pcurr.x += 10;
+    pcurr.x += 11;
     return left_ <= pcurr.x && pcurr.x <= right_ && top_ <= pcurr.y && pcurr.y <= bottom_ &&
            plast.x < left_;
 }

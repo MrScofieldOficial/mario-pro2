@@ -109,9 +109,9 @@ void Mario::update(pro2::Window& window, const vector<Platform>& platforms) {
             set_grounded(true);
             set_y(platform.top());
         } else if (platform.has_crossed_right(last_pos_, pos_)) {
-            set_x(platform.right() + 6);
+            set_x(platform.right() + 4);
         } else if (platform.has_crossed_left(last_pos_, pos_)) {
-            set_x(platform.left() - 10);
+            set_x(platform.left() - 11);
         }
     }
 }
