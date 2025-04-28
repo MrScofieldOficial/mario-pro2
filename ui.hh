@@ -9,4 +9,7 @@
 // };
 void paint_num_of_coffee (pro2::Window& window, int counter, pro2::Pt cam);
 
+void paint_pause_screen (pro2::Window& window, pro2::Pt cam);
+
+void paint_win_screen (pro2::Window& window, pro2::Pt cam);
 #endif

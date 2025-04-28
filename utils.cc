@@ -1,4 +1,5 @@
 #include "utils.hh"
+#include "iostream"
 using namespace std;
 
 namespace pro2 {
@@ -46,4 +47,4 @@ void paint_sprite(pro2::Window&              window,
     }
 }
 
-}  // namespace pro2
+} // namespace pro2

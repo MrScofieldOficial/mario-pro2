@@ -62,6 +62,7 @@ void paint_sprite(pro2::Window&                        window,
                   const std::vector<std::vector<int>>& sprite,
                   bool                                 mirror);
 
+
 }  // namespace pro2
 
 #endif

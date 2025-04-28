@@ -54,7 +54,7 @@ void Platform::paint(pro2::Window& window) const {
 bool Platform::has_crossed_floor_downwards(pro2::Pt plast, pro2::Pt pcurr) const {
     return (left_ <= plast.x && plast.x <= right_) && (left_ <= pcurr.x && pcurr.x <= right_) &&
            (plast.y <= top_ && pcurr.y >= top_);
-}
+}       
 
 bool Platform::has_crossed_floor_upwards(pro2::Pt plast, pro2::Pt pcurr) const {
     pcurr.y -= 16;
