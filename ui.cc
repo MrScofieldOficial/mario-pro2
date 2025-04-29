@@ -55,7 +55,7 @@ void paint_game_over_screen (pro2::Window& window, pro2::Pt cam) {
     restart_info(window, cam, "PITJA 'R' PER REINICIAR");
 }
 
-void restart_info(pro2::Window& window, pro2::Pt cam, std::string s) {
+void restart_info (pro2::Window& window, pro2::Pt cam, std::string s) {
     int x = cam.x, y = cam.y;
     int frame = window.frame_count();
     if (frame % 40 > 15){

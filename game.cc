@@ -4,12 +4,13 @@ using namespace pro2;
 const int k = 16;
 
 Game::Game(int width, int height)
-    : mario_({width / 2, 18 * k}, 0),
-      luigi_({width / 2 - 3 * k, 18 * k}, 'W', 'A', 'D', 1),
+    : mario_({5 * k, 20 * k}, 0),
+      luigi_({2 * k, 20 * k}, 'W', 'A', 'D', 1),
       platforms_{
-          Platform(9 * k, 27 * k, 18 * k, 19 * k),  Platform(0 * k, 18 * k, 22 * k, 23 * k),
-          Platform(23 * k, 36 * k, 14 * k, 15 * k), Platform(5 * k, 24 * k, 9 * k, 10 * k),
-          Platform(27 * k, 28 * k, 13 * k, 14 * k), 
+          Platform(-k,0 ,0, 23 * k, "cracked"),
+          Platform(9 * k, 27 * k, 17 * k, 18 * k, "brick"),  Platform(0 * k, 30 * k -1, 20 * k, 23 * k, "cracked"),
+          Platform(23 * k, 36 * k, 14 * k, 15 * k, "brick"), Platform(5 * k, 24 * k, 9 * k, 10 * k, "brick"),
+          Platform(27 * k, 28 * k, 13 * k, 14 * k, "brick"), 
       },
       cafes_ {
         Coffee ({27 * k, 12 * k}), 
@@ -23,11 +24,11 @@ Game::Game(int width, int height)
       win_condition_(false),
       game_over_(false) {
         for (int i = 1; i < 20; i++) {
-            platforms_.push_back(Platform(23 * k + i * 18 * k, 36 * k + i * 18 * k, 14 * k, 15 * k));
+            platforms_.push_back(Platform(23 * k + i * 18 * k, 36 * k + i * 18 * k, 14 * k, 15 * k, "brick"));
             add_coffees(cafes_, 20 + 18 * i, 9, 5, -2, 5);
         }
         add_coffees(cafes_, 18 , 8, 5, 0, 5);
-        add_coffees(cafes_, 21, 17, 4, 0, 4);
+        add_coffees(cafes_, 21, 16, 4, 0, 4);
       }
 
 //todo preguntar com funciona i si ho puc afegir o es massa avançat per pro2
@@ -55,8 +56,8 @@ void Game::reiniciar(pro2::Window& window) {
     paused_ = false;
     following_ = true;
     Pt pos = mario_.pos();
-    pos.x -= window.width() / 3;
-    pos.y -= window.height() / 3;
+    pos.x -= width / 2;
+    pos.y -= height / 2;
     window.set_camera_topleft(pos);
 
     for (Coffee& c : cafes_){
@@ -103,7 +104,7 @@ void Game::process_keys(pro2::Window& window) {
 void Game::update_objects(pro2::Window& window) {
     mario_.update(window, platforms_);
     luigi_.update(window, platforms_);
-    if ((mario_.pos().y > 23 * k) || luigi_.pos().y > 23 * k) {
+    if ((mario_.pos().y > 25 * k) || luigi_.pos().y > 25 * k) {
         game_over_ = true;
     }
 }
@@ -134,12 +135,14 @@ void Game::update_camera(pro2::Window& window) {
         dy = pos.y - bottom;
     }
 
-    if (mario_.pos().y > 18 * k) {
+    if (cam.y + window.height() / 2 > 22.5 * k) {
         dy = 0;
+        window.set_camera_topleft({cam.x - window.width() / 2, int(22.5 * k) - window.height()});
     } 
-    if (cam.y > 208) {
-        window.set_camera_topleft({cam.x - window.width() / 2, 208 - window.height() / 2});
-    }
+    if (cam.x - window.width() / 2 < 0) {
+        dx = 0;
+        window.set_camera_topleft({0, cam.y - window.height() / 2});
+    } 
 
     //* Per mantenir el mario al centre de la pantalla
     // dx = pos.x - cam.x;

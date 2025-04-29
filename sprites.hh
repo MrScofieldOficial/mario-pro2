@@ -15,8 +15,10 @@ class Sprites {
     static const std::vector<std::vector<int>> luigi_sprite_jump_;
     static const std::map<int, std::vector<std::vector<int>>> luigi_sprites_run_;
 
+    static const std::map<int, std::vector<std::vector<int>>> coffe_sprites;
+
     static const std::map<char, std::vector<std::vector<int>>> diccionari;
 
-    static const std::map<int, std::vector<std::vector<int>>> coffe_sprites;
+    static const std::map<std::string, std::vector<std::vector<int>>> platform_textures;
 };
 #endif

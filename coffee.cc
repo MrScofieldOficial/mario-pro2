@@ -15,18 +15,20 @@ void Coffee::paint(pro2::Window& window) const {
 }
 
 bool Coffee::can_collect_coin (pro2::Rect character_hit_box, pro2::Rect coffee_hit_box) {
-    bool horizontal, vertical;
+    bool horizontal, vertical, inside;
     horizontal = (character_hit_box.top >= coffee_hit_box.top && character_hit_box.top <= coffee_hit_box.bottom ||
                   character_hit_box.bottom >= coffee_hit_box.top && character_hit_box.bottom <= coffee_hit_box.bottom);
     vertical = (character_hit_box.left >= coffee_hit_box.left && character_hit_box.left <= coffee_hit_box.right ||
                 character_hit_box.right >= coffee_hit_box.left && character_hit_box.right <= coffee_hit_box.right);
-    return horizontal && vertical;
+    inside = (character_hit_box.left <= coffee_hit_box.left && character_hit_box.right >=  coffee_hit_box.right &&
+              character_hit_box.top <= coffee_hit_box.top && character_hit_box.bottom >= coffee_hit_box.bottom);
+    return (horizontal && vertical) || inside;
 }
 
 void Coffee::update (pro2::Window& window, const pro2::Pt& mario_pos, const pro2::Pt& luigi_pos, int& total_colected) {
     pro2::Rect mario_hit_box = {mario_pos.x - 3, mario_pos.y - 17, mario_pos.x + 11, mario_pos.y + 1};
     pro2::Rect luigi_hit_box = {luigi_pos.x - 3, luigi_pos.y - 17, luigi_pos.x + 11, luigi_pos.y + 1};
-    pro2::Rect coffee_hit_box = {pos_.x + 4, pos_.y - 1, pos_.x + 13, pos_.y + 17};
+    pro2::Rect coffee_hit_box = {pos_.x + 4, pos_.y - 1, pos_.x + 13, pos_.y + 16};
     if (!colected) {
         colected = (can_collect_coin(mario_hit_box, coffee_hit_box) || can_collect_coin(luigi_hit_box, coffee_hit_box));
         if (colected)

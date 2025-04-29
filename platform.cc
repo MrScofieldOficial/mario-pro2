@@ -1,11 +1,10 @@
 #include "platform.hh"
 #include "utils.hh"
+#include "sprites.hh"
 using namespace std;
 
 using pro2::Color;
 
-const int b = 0xc84d0b;
-const int _ = 0;
 
 // clang-format off
 // const vector<vector<int>> Platform::brick_platform_texture_ = {
@@ -19,36 +18,55 @@ const int _ = 0;
 // 	{_, _, _, _, _, _, _},
 // };
 
-const vector<vector<int>> Platform::brick_platform_texture_ = {
-    {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
-    {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
-    {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
-    {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
-    {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
-    {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
-    {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
-    {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
-    {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
-    {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
-    {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
-    {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
-    {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
-    {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
-    {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
-    {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
-};
-// clang-format on
+// const vector<vector<int>> Platform::brick_platform_texture_ = {
+//     {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
+//     {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
+//     {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
+//     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+//     {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
+//     {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
+//     {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
+//     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+//     {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
+//     {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
+//     {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
+//     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+//     {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
+//     {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
+//     {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
+//     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+// // };
+// const vector<vector<int>> Platform::cracked_platform_texture_ = {
+//     {b, h, h, h, h, h, h, h, h, _, b, h, h, h, h, b},
+//     {h, b, b, b, b, b, b, b, b, _, h, b, b, b, b, _},
+//     {h, b, b, b, b, b, b, b, b, _, h, b, b, b, b, _},
+//     {h, b, b, b, b, b, b, b, b, _, h, b, b, b, b, _},
+//     {h, b, b, b, b, b, b, b, b, _, h, _, b, b, b, _},
+//     {h, b, b, b, b, b, b, b, b, _, b, _, _, _, _, b},
+//     {h, b, b, b, b, b, b, b, b, _, h, h, h, h, h, _},
+//     {h, b, b, b, b, b, b, b, b, _, h, b, b, b, b, _},
+//     {h, b, b, b, b, b, b, b, b, _, h, b, b, b, b, _},
+//     {h, b, b, b, b, b, b, b, b, _, h, b, b, b, b, _},
+//     {_, _, b, b, b, b, b, b, _, h, b, b, b, b, b, _},
+//     {h, h, _, _, b, b, b, b, _, h, b, b, b, b, b, _},
+//     {h, b, h, h, _, _, _, _, h, b, b, b, b, b, b, _},
+//     {h, b, b, b, h, h, h, _, h, b, b, b, b, b, b, _},
+//     {h, b, b, b, b, b, b, b, h, b, b, b, b, b, _, _},
+//     {_, _, _, _, _, _, _, _, h, _, _, _, _, _, _, b},
+// };
+// // clang-format on
 
 void Platform::paint(pro2::Window& window) const {
-    const int xsz = brick_platform_texture_.size();
-    const int ysz = brick_platform_texture_[0].size();
+    const int xsz = Sprites::platform_textures.at(id_).size();
+    const int ysz = Sprites::platform_textures.at(id_)[0].size();
     for (int i = top_ + 1; i <= bottom_; i++) {
         for (int j = left_; j <= right_; j++) {
-            window.set_pixel({j, i},
-                             brick_platform_texture_[(i - top_ - 1) % xsz][(j - left_) % ysz]);
+            window.set_pixel({j, i}, Sprites::platform_textures.at(id_)[(i - top_ - 1) % xsz][(j - left_) % ysz]);
         }
     }
-    paint_hline(window, left_, right_, top_ + 1, 0xfcd8a9);
+    if (id_ == "brick") {
+        paint_hline(window, left_, right_, top_ + 1, 0xfcd8a9);
+    }
 }
 
 bool Platform::has_crossed_floor_downwards(pro2::Pt plast, pro2::Pt pcurr) const {

@@ -6,19 +6,22 @@
 
 class Platform {
  private:
-    pro2::Pt topleft_, bottomright_;
-    int      left_, right_, top_, bottom_;
+    pro2::Pt    topleft_, bottomright_;
+    int         left_, right_, top_, bottom_;
+    std::string id_;
 
-    static const std::vector<std::vector<int>> brick_platform_texture_;
+    // static const std::vector<std::vector<int>> brick_platform_texture_;
+    // static const std::vector<std::vector<int>> cracked_platform_texture_;
+
 
  public:
-    Platform() : left_(0), right_(0), top_(0), bottom_(0) {}
+    Platform() : left_(0), right_(0), top_(0), bottom_(0), id_("brick") {}
 
     Platform(const Platform& other)
-        : left_(other.left_), right_(other.right_), top_(other.top_), bottom_(other.bottom_) {}
+        : left_(other.left_), right_(other.right_), top_(other.top_), bottom_(other.bottom_), id_(other.id_) {}
 
-    Platform(int left, int right, int top, int bottom)
-        : left_(left), right_(right), top_(top), bottom_(bottom) {}
+    Platform(int left, int right, int top, int bottom, std::string id)
+        : left_(left), right_(right), top_(top), bottom_(bottom), id_(id) {}
 
     void paint(pro2::Window& window) const;
     void paint_top(pro2::Window& window) const;

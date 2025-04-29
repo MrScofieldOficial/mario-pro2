@@ -20,6 +20,10 @@ const int z = 0xb5b5b5;
 const int m = 0x824217;
 const int e = 0xf5e59d;
 const int l = 0x694a19;
+const int M = 0xc74a0c;
+const int H = 0xfcd8a8;
+const int B = 0;
+
 
 //* MARIO
 const vector<vector<int>> Sprites::mario_sprite_normal_ = {
@@ -1128,4 +1132,43 @@ const std::map<char, std::vector<std::vector<int>>> Sprites::diccionari = {
       {_, _, _, _, _, _, _}}},
 };
 
+
 //* PLATAFORMES
+
+const std::map<std::string, std::vector<std::vector<int>>> Sprites::platform_textures = {
+    {"brick", {
+        {B, M, M, M, M, M, M, M, B, M, M, M, M, M, M, M},
+        {B, M, M, M, M, M, M, M, B, M, M, M, M, M, M, M},
+        {B, M, M, M, M, M, M, M, B, M, M, M, M, M, M, M},
+        {B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B},
+        {M, M, M, M, B, M, M, M, M, M, M, M, B, M, M, M},
+        {M, M, M, M, B, M, M, M, M, M, M, M, B, M, M, M},
+        {M, M, M, M, B, M, M, M, M, M, M, M, B, M, M, M},
+        {B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B},
+        {B, M, M, M, M, M, M, M, B, M, M, M, M, M, M, M},
+        {B, M, M, M, M, M, M, M, B, M, M, M, M, M, M, M},
+        {B, M, M, M, M, M, M, M, B, M, M, M, M, M, M, M},
+        {B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B},
+        {M, M, M, M, B, M, M, M, M, M, M, M, B, M, M, M},
+        {M, M, M, M, B, M, M, M, M, M, M, M, B, M, M, M},
+        {M, M, M, M, B, M, M, M, M, M, M, M, B, M, M, M},
+        {B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B}}},
+    {"cracked", {
+        {M, H, H, H, H, H, H, H, H, B, M, H, H, H, H, M},
+        {H, M, M, M, M, M, M, M, M, B, H, M, M, M, M, B},
+        {H, M, M, M, M, M, M, M, M, B, H, M, M, M, M, B},
+        {H, M, M, M, M, M, M, M, M, B, H, M, M, M, M, B},
+        {H, M, M, M, M, M, M, M, M, B, H, B, M, M, M, B},
+        {H, M, M, M, M, M, M, M, M, B, M, B, B, B, B, M},
+        {H, M, M, M, M, M, M, M, M, B, H, H, H, H, H, B},
+        {H, M, M, M, M, M, M, M, M, B, H, M, M, M, M, B},
+        {H, M, M, M, M, M, M, M, M, B, H, M, M, M, M, B},
+        {H, M, M, M, M, M, M, M, M, B, H, M, M, M, M, B},
+        {B, B, M, M, M, M, M, M, B, H, M, M, M, M, M, B},
+        {H, H, B, B, M, M, M, M, B, H, M, M, M, M, M, B},
+        {H, M, H, H, B, B, B, B, H, M, M, M, M, M, M, B},
+        {H, M, M, M, H, H, H, B, H, M, M, M, M, M, M, B},
+        {H, M, M, M, M, M, M, M, H, M, M, M, M, M, B, B},
+        {B, B, B, B, B, B, B, B, H, B, B, B, B, B, B, M}}}
+    
+};
