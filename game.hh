@@ -31,20 +31,29 @@ class Game {
 
     void update(pro2::Window& window);
     void paint(pro2::Window& window);
-    void pause(pro2::Window& window);
-    void reiniciar(pro2::Window& window);
+    void reiniciar(pro2::Window& window); 
 
-    void add_coffees(std::vector<Coffee>& cafes_, int center_x, int center_y, int width, int height, int num = 5);
+    /**
+     * @brief Afageix diversos cafes de manera senzilla
+     * 
+     * @param cafes_ Vector de Cafes
+     * @param center Centre de la paràbola / recta
+     * @param width Amplada (en blocs) de la paràbola / recta
+     * @param height Alçada (en blocs) de la paràbola / recta
+     * @param mun Nombre de cafes, per defecte 5
+     */
+    void add_coffees(std::vector<Coffee>& cafes_, pro2::Pt center, int width, int height, int num = 5);
 
     bool is_paused() const {
         return paused_;
     }
+    
     bool is_finished() const {
         return finished_;
     }
 
     private:
-    // canviar el color de la funcio :paint_hline_top_platforms (a utils) si canvio el color del cel i el de pause_screen;
+    // canviar el color de les funcind: paint_hline_top_platforms (a utils) i el de pause_screen  si canvio el color del cel
     static constexpr int sky_blue = 0x9389fa;
 };
 

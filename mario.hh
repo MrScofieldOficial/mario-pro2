@@ -5,6 +5,7 @@
 #include <vector>
 #include "coffee.hh"
 #include "platform.hh"
+#include "coffee.hh"
 #include "window.hh"
 #include "utils.hh"
 
@@ -14,7 +15,7 @@ class Mario {
     pro2::Pt speed_ = {0, 0};
     pro2::Pt accel_ = {0, 0};
     int      accel_time_ = 0;
-    int      id_;
+    int      id_; // 0 = mario, 1 = luigi
 
     bool grounded_ = false;
     bool looking_left_ = false;
@@ -46,6 +47,8 @@ class Mario {
           id_(id) {}
 
     void paint(pro2::Window& window) const;
+    void jump();
+    void update(pro2::Window& window, const std::vector<Platform>& platforms, std::vector<Coffee>& cafes, int& total_coffee);
 
     pro2::Pt pos() const {
         return pos_;
@@ -74,12 +77,14 @@ class Mario {
         set_grounded(!grounded_);
     }
 
-    void     set_pos(pro2::Pt new_pos);
-    pro2::Pt get_original_pos();
-
-    void jump();
-
-    void update(pro2::Window& window, const std::vector<Platform>& platforms);
+    void set_pos(pro2::Pt new_pos) {
+        pos_ = new_pos;
+    }
+    
+    pro2::Pt get_original_pos() {
+        looking_left_ = false;
+        return original_pos_;
+    }
 
  private:
 };

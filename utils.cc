@@ -32,10 +32,7 @@ void paint_rect(pro2::Window& window, pro2::Rect rect, Color color) {
     }
 }
 
-void paint_sprite(pro2::Window&              window,
-                  pro2::Pt                   orig,
-                  const vector<vector<int>>& sprite,
-                  bool                       mirror) {
+void paint_sprite(pro2::Window& window, pro2::Pt orig, const vector<vector<int>>& sprite, bool mirror) {
     for (int i = 0; i < sprite.size(); i++) {
         const vector<int>& line = sprite[i];
         for (int j = 0; j < line.size(); j++) {

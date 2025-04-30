@@ -1,14 +1,16 @@
 #include "game.hh"
 #include "utils.hh"
+#include "sprites.hh"
 using namespace pro2;
 const int k = 16;
 
 Game::Game(int width, int height)
-    : mario_({5 * k, 20 * k}, 0),
-      luigi_({2 * k, 20 * k}, 'W', 'A', 'D', 1),
+    : mario_({3 * k, 20 * k}, 0),
+      luigi_({3 * k, 16 * k}, 'W', 'A', 'D', 1),
       platforms_{
           Platform(-k,0 ,0, 23 * k, "cracked"),
-          Platform(9 * k, 27 * k, 17 * k, 18 * k, "brick"),  Platform(0 * k, 30 * k -1, 20 * k, 23 * k, "cracked"),
+          Platform(0 * k, 6 * k, 16 * k, 17 * k, "brick"),
+          Platform(13 * k, 27 * k, 17 * k, 18 * k, "brick"),  Platform(0 * k, 30 * k -1, 20 * k, 23 * k, "cracked"),
           Platform(23 * k, 36 * k, 14 * k, 15 * k, "brick"), Platform(5 * k, 24 * k, 9 * k, 10 * k, "brick"),
           Platform(27 * k, 28 * k, 13 * k, 14 * k, "brick"), 
       },
@@ -25,29 +27,28 @@ Game::Game(int width, int height)
       game_over_(false) {
         for (int i = 1; i < 20; i++) {
             platforms_.push_back(Platform(23 * k + i * 18 * k, 36 * k + i * 18 * k, 14 * k, 15 * k, "brick"));
-            add_coffees(cafes_, 20 + 18 * i, 9, 5, -2, 5);
+            add_coffees(cafes_, {20 + 18 * i, 9}, 5, -2);
         }
-        add_coffees(cafes_, 18 , 8, 5, 0, 5);
-        add_coffees(cafes_, 21, 16, 4, 0, 4);
+        add_coffees(cafes_, {18 , 8}, 5, 0, 5);
+        add_coffees(cafes_, {21, 16}, 4, 0, 4);
       }
 
-//todo preguntar com funciona i si ho puc afegir o es massa avançat per pro2
-void Game::add_coffees(std::vector<Coffee>& cafes_, int center_x, int center_y, int width, int height, int num) {
-    center_x *= k;
-    center_y *= k;
+// Afegeix cafes en paràbola o linia recta de manera senzilla
+// En linia millor que num = width - 1 i en paràbola num = 5 
+void Game::add_coffees(std::vector<Coffee>& cafes_, pro2::Pt center, int width, int height, int num) {
+    center.x *= k;
+    center.y *= k;
     width *= k;
     height *= k;
     for (int i = 0; i < num; ++i) {
-        // Calculate the x position based on the number of coins
-        float normalized_x = (i / (num - 1.0)) * 2.0 - 1.0;  // Normalize i to range [-1, 1]
-        int x = center_x + (normalized_x * (width / 2));  // Spread coins over width
-        // Calculate the y position to form the arch
-        int y = center_y - (normalized_x * normalized_x * height);  // Arch height
-        cafes_.push_back(Coffee({x, y}));
+        float normalized_x = (i / (num - 1.0)) * 2.0 - 1.0;  // Normalitza la x del cafe dins l'interval [-1, 1]
+        int x = center.x + (normalized_x * (width / 2));  // Calcula la x del cafe proporcional a la seva posició normalitzada
+        int y = center.y - (normalized_x * normalized_x * height);  // Calcula la imatge de f(x) = height * x^2
+        cafes_.push_back(Coffee({x, y}, i % (num * 2 )));
     }
 }
 
-
+// Torna a l'estat inicial
 void Game::reiniciar(pro2::Window& window) {
     const int width = window.width();
     const int height = window.height();
@@ -61,12 +62,13 @@ void Game::reiniciar(pro2::Window& window) {
     window.set_camera_topleft(pos);
 
     for (Coffee& c : cafes_){
-        c.colected = false;
+        c.set_colect(false);
     }
     total_coffees_ = 0;
     game_over_ = false;
 }
 
+// Llegeix les inputs dels jugadors
 void Game::process_keys(pro2::Window& window) {
     ++cooldown_keys_;
     if (window.is_key_down(Keys::Escape)) {
@@ -82,11 +84,11 @@ void Game::process_keys(pro2::Window& window) {
         win_condition_ = !win_condition_;  // toggle
         paused_ = !paused_;  // toggle
     }
-    if (window.is_key_down(80) && cooldown_keys_ > 15) {
+    if (window.is_key_down('P') && cooldown_keys_ > 15) {
         cooldown_keys_ = 0;
         paused_ = !paused_;  // toggle
     }
-    if (window.is_key_down(67) && cooldown_keys_ > 15) {
+    if (window.is_key_down('C') && cooldown_keys_ > 15) {
         cooldown_keys_ = 0;
         following_ = !following_;  // toggle
         Pt pos;
@@ -101,14 +103,16 @@ void Game::process_keys(pro2::Window& window) {
     }
 }
 
+// Actualitza tots els objectes
 void Game::update_objects(pro2::Window& window) {
-    mario_.update(window, platforms_);
-    luigi_.update(window, platforms_);
+    mario_.update(window, platforms_, cafes_, total_coffees_);
+    luigi_.update(window, platforms_, cafes_, total_coffees_);
     if ((mario_.pos().y > 25 * k) || luigi_.pos().y > 25 * k) {
         game_over_ = true;
     }
 }
 
+// Actualitza la posició de la càmera
 void Game::update_camera(pro2::Window& window) {
     Pt pos;
     if (following_) {
@@ -150,6 +154,7 @@ void Game::update_camera(pro2::Window& window) {
     window.move_camera({dx, dy});
 }
 
+// Actualitza el estat del joc
 void Game::update(pro2::Window& window) {
     process_keys(window);
     if (!paused_) {
@@ -158,21 +163,33 @@ void Game::update(pro2::Window& window) {
     }
 }
 
+// Dibuixa a la pantalla
 void Game::paint(pro2::Window& window) {
+    // Cel
     window.clear(sky_blue);
 
+    // No interactuables / fons
+    paint_sprite(window, {9 * k, 18 * k}, Sprites::signs_sprites.at("right_arrow"), false);
+    paint_sprite(window, {31 * k, 12* k}, Sprites::signs_sprites.at("left_arrow"), false);
+    // paint_sprite(window, {18 * k, 13* k}, Sprites::blocs_especials.at("interrogant"), false);
+
+    // Plataformes
     for (const Platform& p : platforms_) {
         p.paint(window);
     }    
+    
+    // Cafes
     for (Coffee& c : cafes_){
-        c.update(window, mario_.pos(), luigi_.pos(), total_coffees_);
-        if (!c.colected)
+        if (!c.is_colected()) {
             c.paint(window);
+        }
     }
+
+    // Personatges i enemics
     mario_.paint(window);
     luigi_.paint(window);
 
-    //* Pintar recuadre
+    // Recuadre
     pro2::Color col;
     if (following_) {
         col = red;
@@ -182,26 +199,30 @@ void Game::paint(pro2::Window& window) {
     const Pt  cam = window.camera_center();
     const int width = window.width();
     const int height = window.height();
-
     const int left = cam.x - width / 2;
     const int right = cam.x + width / 2;
     const int top = cam.y - height / 2;
     const int bottom = cam.y + height / 2;
+
     paint_hline(window, left, right, top, col);
     paint_hline(window, left, right, bottom - 1, col);
     paint_vline(window, left, top, bottom, col);
     paint_vline(window, right - 1, top, bottom, col);
     
+    // Comptador de cafes
     paint_num_of_coffee(window, total_coffees_, cam);
 
     //todo fer que la pantalla de pausa posi el joc més fosc (rectangle negre translucid) (no se com fer que sigui translucid)
+    // Pantalla de pausa
     if (paused_ && !win_condition_) {
         paint_pause_screen(window, cam);
     }
+    // Pantalla de joc perdut
     if (game_over_) {
         paused_ = true;
         paint_game_over_screen(window, cam);
     }
+    // Pantalla de joc guanyat
     if (win_condition_) {
         paused_ = true;
         paint_win_screen(window, cam);

@@ -22,11 +22,12 @@ const int e = 0xf5e59d;
 const int l = 0x694a19;
 const int M = 0xc74a0c;
 const int H = 0xfcd8a8;
+const int F = 0xfc9738;
 const int B = 0;
 
-
+const std::map<std::string, std::vector<std::vector<int>>> Sprites::character_sprites = {
 //* MARIO
-const vector<vector<int>> Sprites::mario_sprite_normal_ = {
+    {"mario_sprite_normal_", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, r, r, r, r, r, o, o, o, _, _, _, _, _},
     {_, _, _, _, _, o, r, r, r, r, r, r, r, r, r, o, _, _, _, _},
@@ -44,10 +45,8 @@ const vector<vector<int>> Sprites::mario_sprite_normal_ = {
     {_, _, _, _, o, o, b, b, b, o, o, b, b, b, o, o, _, _, _, _},
     {_, _, _, _, o, h, h, h, o, _, _, o, h, h, h, o, _, _, _, _},
     {_, _, _, o, h, h, h, h, o, _, _, o, h, h, h, h, o, _, _, _},
-    {_, _, _, _, o, o, o, o, _, _, _, _, o, o, o, o, _, _, _, _},
-};
-
-const vector<vector<int>> Sprites::mario_sprite_jump_ = {
+    {_, _, _, _, o, o, o, o, _, _, _, _, o, o, o, o, _, _, _, _}}},
+    {"mario_sprite_jump_", {
     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, o, o, o, _, _, _},
     {_, _, _, _, _, _, _, o, o, o, o, o, _, o, s, s, s, o, _, _},
     {_, _, _, _, _, _, o, r, r, r, r, r, o, o, s, s, s, o, _, _},
@@ -65,11 +64,8 @@ const vector<vector<int>> Sprites::mario_sprite_jump_ = {
     {_, _, o, h, h, h, b, b, b, b, b, b, o, b, b, b, h, h, o, _},
     {_, o, h, h, h, b, b, b, b, b, b, o, b, b, o, o, o, o, _, _},
     {_, o, h, o, o, b, b, b, b, o, o, o, o, o, _, _, _, _, _, _},
-    {_, _, o, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _, _, _},
-};
-
-const std::map<int, std::vector<std::vector<int>>> Sprites::mario_sprites_run_ = {
-    {0, {
+    {_, _, o, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _, _, _}}},
+    {"mario_sprite_run_0", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, r, r, r, r, r, o, o, o, _, _, _, _, _},
     {_, _, _, _, _, o, r, r, r, r, r, r, r, r, r, o, _, _, _, _},
@@ -88,7 +84,7 @@ const std::map<int, std::vector<std::vector<int>>> Sprites::mario_sprites_run_ =
     {_, _, o, h, h, h, o, o, _, _, _, o, o, o, o, o, o, _, _, _},
     {_, _, _, o, h, h, h, o, _, _, _, _, _, _, _, _, _, _, _, _},
     {_, _, _, _, o, o, o, _, _, _, _, _, _, _, _, _, _, _, _, _}}},
-    {1, {
+    {"mario_sprite_run_1", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, r, r, r, r, r, o, o, o, _, _, _, _, _},
     {_, _, _, _, _, o, r, r, r, r, r, r, r, r, r, o, _, _, _, _},
@@ -107,7 +103,7 @@ const std::map<int, std::vector<std::vector<int>>> Sprites::mario_sprites_run_ =
     {_, _, _, o, h, o, o, o, o, h, h, h, o, _, _, _, _, _, _, _},
     {_, _, _, _, o, _, _, _, _, o, h, h, h, o, _, _, _, _, _, _},
     {_, _, _, _, _, _, _, _, _, _, o, o, o, _, _, _, _, _, _, _}}},
-    {2, {
+    {"mario_sprite_run_2", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, r, r, r, r, r, o, o, o, _, _, _, _, _},
     {_, _, _, _, _, o, r, r, r, r, r, r, r, r, r, o, _, _, _, _},
@@ -124,11 +120,9 @@ const std::map<int, std::vector<std::vector<int>>> Sprites::mario_sprites_run_ =
     {_, _, _, _, _, o, b, r, s, s, b, b, o, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, b, b, b, h, h, h, o, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, h, h, h, h, o, o, _, _, _, _, _, _, _},
-    {_, _, _, _, _, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _}}}
-};
-
+    {_, _, _, _, _, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _}}},
 //* LUIGI
-const vector<vector<int>> Sprites::luigi_sprite_normal_ = {
+    {"luigi_sprite_normal_", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, g, g, g, g, g, o, o, o, _, _, _, _, _},
     {_, _, _, _, _, o, g, g, g, g, g, g, g, g, g, o, _, _, _, _},
@@ -146,10 +140,8 @@ const vector<vector<int>> Sprites::luigi_sprite_normal_ = {
     {_, _, _, _, o, o, b, b, b, o, o, b, b, b, o, o, _, _, _, _},
     {_, _, _, _, o, h, h, h, o, _, _, o, h, h, h, o, _, _, _, _},
     {_, _, _, o, h, h, h, h, o, _, _, o, h, h, h, h, o, _, _, _},
-    {_, _, _, _, o, o, o, o, _, _, _, _, o, o, o, o, _, _, _, _},
-};
-
-const vector<vector<int>> Sprites::luigi_sprite_jump_ = {
+    {_, _, _, _, o, o, o, o, _, _, _, _, o, o, o, o, _, _, _, _}}},
+    {"luigi_sprite_jump_", {
     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, o, o, o, _, _, _},
     {_, _, _, _, _, _, _, o, o, o, o, o, _, o, s, s, s, o, _, _},
     {_, _, _, _, _, _, o, g, g, g, g, g, o, o, s, s, s, o, _, _},
@@ -167,11 +159,8 @@ const vector<vector<int>> Sprites::luigi_sprite_jump_ = {
     {_, _, o, h, h, h, b, b, b, b, b, b, o, b, b, b, h, h, o, _},
     {_, o, h, h, h, b, b, b, b, b, b, o, b, b, o, o, o, o, _, _},
     {_, o, h, o, o, b, b, b, b, o, o, o, o, o, _, _, _, _, _, _},
-    {_, _, o, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _, _, _},
-};
-
-const std::map<int, std::vector<std::vector<int>>> Sprites::luigi_sprites_run_ = {
-    {0, {
+    {_, _, o, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _, _, _}}},
+    {"luigi_sprite_run_0", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, g, g, g, g, g, o, o, o, _, _, _, _, _},
     {_, _, _, _, _, o, g, g, g, g, g, g, g, g, g, o, _, _, _, _},
@@ -190,7 +179,7 @@ const std::map<int, std::vector<std::vector<int>>> Sprites::luigi_sprites_run_ =
     {_, _, o, h, h, h, o, o, _, _, _, o, o, o, o, o, o, _, _, _},
     {_, _, _, o, h, h, h, o, _, _, _, _, _, _, _, _, _, _, _, _},
     {_, _, _, _, o, o, o, _, _, _, _, _, _, _, _, _, _, _, _, _}}},
-    {1, {
+    {"luigi_sprite_run_1", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, g, g, g, g, g, o, o, o, _, _, _, _, _},
     {_, _, _, _, _, o, g, g, g, g, g, g, g, g, g, o, _, _, _, _},
@@ -209,7 +198,7 @@ const std::map<int, std::vector<std::vector<int>>> Sprites::luigi_sprites_run_ =
     {_, _, _, o, h, o, o, o, o, h, h, h, o, _, _, _, _, _, _, _},
     {_, _, _, _, o, _, _, _, _, o, h, h, h, o, _, _, _, _, _, _},
     {_, _, _, _, _, _, _, _, _, _, o, o, o, _, _, _, _, _, _, _}}},
-    {2, {
+    {"luigi_sprite_run_2", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, g, g, g, g, g, o, o, o, _, _, _, _, _},
     {_, _, _, _, _, o, g, g, g, g, g, g, g, g, g, o, _, _, _, _},
@@ -226,7 +215,7 @@ const std::map<int, std::vector<std::vector<int>>> Sprites::luigi_sprites_run_ =
     {_, _, _, _, _, o, b, g, s, s, b, b, o, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, b, b, b, h, h, h, o, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, h, h, h, h, o, o, _, _, _, _, _, _, _},
-    {_, _, _, _, _, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _}}},
+    {_, _, _, _, _, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _}}}
 };
 
 
@@ -607,6 +596,79 @@ const std::map<int, std::vector<std::vector<int>>> Sprites::coffe_sprites = {
     {_, _, o, m, m, m, m, m, m, m, o, _, _}, 
     {_, _, o, o, o, o, o, o, o, o, o, _, _}}},
 };
+
+//* FLETXES
+const std::map<std::string, std::vector<std::vector<int>>> Sprites::signs_sprites = {
+    {"right_arrow", {
+        {_, _, _, _, _, _, _, _, _, _, B, B, B, B, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, h, h, m, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, h, m, m, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, m, m, m, m, B, _, _, _, _, B, B, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, m, m, m, o, B, _, _, _, B, h, h, B, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, m, m, o, B, _, _, _, B, h, m, h, B, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, m, o, o, B, _, _, _, B, m, m, m, h, B, _, _, _, _, _},
+        {_, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, o, o, o, o, o, o, B, _, _, _, _},
+        {B, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, B, _, _, _},
+        {B, h, m, m, m, h, h, m, m, m, m, m, m, h, h, h, h, m, m, m, m, m, m, h, h, m, h, B, _, _},
+        {B, h, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, B, _},
+        {B, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, B},
+        {B, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, B, _},
+        {B, h, m, m, m, m, m, m, m, m, h, h, m, m, m, m, m, m, m, m, h, h, h, h, m, m, m, B, _, _},
+        {B, h, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, B, _, _, _},
+        {_, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, o, o, o, o, o, o, B, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, o, o, o, o, o, B, _, _, _, B, m, h, h, h, B, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, m, m, o, B, _, _, _, B, h, m, m, B, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, m, m, m, B, _, _, _, B, h, m, B, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, m, m, m, o, B, _, _, _, _, B, B, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, m, m, o, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, m, m, o, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, m, m, m, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, h, m, m, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, h, m, m, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, m, m, m, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, m, m, o, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, m, m, o, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, m, m, m, o, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, m, m, m, o, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, m, m, m, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, h, m, m, m, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, h, m, m, m, o, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _}}},
+    {"left_arrow", {
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, B, B, B, B, B, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, h, h, h, m, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, h, h, m, m, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, B, B, _, _, _, _, B, h, m, m, m, m, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, B, h, m, B, _, _, _, B, h, m, m, m, o, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, B, h, h, m, B, _, _, _, B, h, h, m, m, o, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, B, h, m, m, m, B, _, _, _, B, h, h, m, o, o, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, B, o, o, o, o, o, o, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, _},
+        {_, _, _, B, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, m, B},
+        {_, _, B, h, h, h, m, m, m, m, h, h, h, h, h, h, h, h, m, m, h, h, h, h, h, h, h, h, m, B},
+        {_, B, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, B},
+        {B, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, o, B},
+        {_, B, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, h, m, B},
+        {_, _, B, m, h, m, m, h, h, h, h, h, h, m, m, m, m, h, h, h, h, h, h, m, m, h, h, h, m, B},
+        {_, _, _, B, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, m, B},
+        {_, _, _, _, B, o, o, o, o, o, o, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, _},
+        {_, _, _, _, _, B, h, h, h, m, B, _, _, _, B, o, o, o, o, o, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, B, h, m, m, B, _, _, _, B, h, h, m, m, o, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, B, m, m, B, _, _, _, B, h, h, m, m, m, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, B, B, _, _, _, _, B, h, m, m, m, o, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, h, m, m, o, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, h, m, m, o, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, h, m, m, m, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, h, h, m, m, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, h, h, m, m, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, h, m, m, m, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, h, m, m, o, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, h, m, m, o, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, m, m, m, o, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, m, m, m, o, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, h, m, m, m, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, h, m, m, m, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, h, m, m, m, o, B, _, _, _, _, _, _, _, _, _}}}
+};
+
 
 //* LLETRES
 const std::map<char, std::vector<std::vector<int>>> Sprites::diccionari = {
@@ -1171,4 +1233,26 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::platform_tex
         {H, M, M, M, M, M, M, M, H, M, M, M, M, M, B, B},
         {B, B, B, B, B, B, B, B, H, B, B, B, B, B, B, M}}}
     
+};
+
+//* Blocs especials
+const std::map<std::string, std::vector<std::vector<int>>> Sprites::blocs_especials = {
+    {"interrogant", {
+        {_, M, M, M, M, M, M, M, M, M, M, M, M, M, M, _},
+        {M, F, F, F, F, F, F, F, F, F, F, F, F, F, F, B},
+        {M, F, B, F, F, F, F, F, F, F, F, F, F, B, F, B},
+        {M, F, F, F, F, M, M, M, M, M, F, F, F, F, F, B},
+        {M, F, F, F, M, M, B, B, B, M, M, F, F, F, F, B},
+        {M, F, F, F, M, M, B, F, F, M, M, B, F, F, F, B},
+        {M, F, F, F, M, M, B, F, F, M, M, B, F, F, F, B},
+        {M, F, F, F, F, B, B, F, M, M, M, B, F, F, F, B},
+        {M, F, F, F, F, F, F, M, M, B, B, B, F, F, F, B},
+        {M, F, F, F, F, F, F, M, M, B, F, F, F, F, F, B},
+        {M, F, F, F, F, F, F, F, B, B, F, F, F, F, F, B},
+        {M, F, F, F, F, F, F, M, M, F, F, F, F, F, F, B},
+        {M, F, F, F, F, F, F, M, M, B, F, F, F, F, F, B},
+        {M, F, B, F, F, F, F, F, B, B, F, F, F, B, F, B},
+        {M, F, F, F, F, F, F, F, F, F, F, F, F, F, F, B},
+        {B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B},
+    }}
 };
