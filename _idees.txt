@@ -11,5 +11,5 @@ afegir linies clares a la part superior de les plataformes (que no apareguin si 
 si no beus cafe en un cert temps t'adorms i perds
 cada nivell es una assignatura i esta ambitentat en ella
 fer que no calgui posar (* k) a les constructores
-que els cafes pugin i baixin a ritmes diferents
 posar manera de guanyar
+checkpoint

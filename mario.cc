@@ -12,6 +12,9 @@ void Mario::paint(pro2::Window& window) const {
     } else if (id_ == 1) {
         sprite_id = "luigi_sprite_"; // luigi_sprite_
     }
+    if (rush_) {
+        sprite_id += "blushed_";
+    }
     if (jumping_) {
         sprite_id += "jump_";  // mario_sprite_jump_ o luigi_sprite_jump_
         paint_sprite(window, top_left, Sprites::character_sprites.at(sprite_id), looking_left_);
@@ -48,10 +51,10 @@ void Mario::apply_physics_() {
     pos_.y += speed_.y;
 }
 
-void Mario::jump() {
+void Mario::jump(float mult) {
     if (grounded_) {
         speed_.y = -1;
-        accel_.y = -6;
+        accel_.y = -6 * mult;
         grounded_ = false;
         accel_time_ = 2;
         jumping_ = true;
@@ -59,17 +62,22 @@ void Mario::jump() {
 }
 
 void Mario::update(pro2::Window& window, const vector<Platform>& platforms, vector<Coffee>& cafes, int& total_coffee) {
+    float mult = 1;
+    if (rush_) {
+        mult = 1.5;
+    }
+
     last_pos_ = pos_;
     if (window.is_key_down(jump_key_)) {
-        jump();
+        jump(mult);
     }
 
     // Velocitat horitzontal
     speed_.x = 0;
     if (window.is_key_down(left_key_)) {
-        speed_.x = -4;
+        speed_.x = -4 * mult;
     } else if (window.is_key_down(right_key_)) {
-        speed_.x = 4;
+        speed_.x = 4 * mult;
     }
     if (speed_.x != 0) {
         looking_left_ = speed_.x < 0;
@@ -96,10 +104,19 @@ void Mario::update(pro2::Window& window, const vector<Platform>& platforms, vect
         }
     }
 
-    // Check Coffee interactions
-    for (Coffee& coffee : cafes) {
-        if (!coffee.is_colected()) {
-            coffee.set_colect(coffee.can_collect_coin(pos_), total_coffee);
+    // Calculates all the rush logic
+    if (!rush_) {
+        if (total_coffee % 10 == 0 && total_coffee != last_rush_) {
+            rush_ = true;
+            last_rush_ = total_coffee;
+        }
+    } else {
+        if (rush_time_ <= 50) {
+            rush_time_++;
+        }
+        else {
+            rush_ = false;
+            rush_time_ = 0;
         }
     }
 }

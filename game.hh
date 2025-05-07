@@ -47,7 +47,7 @@ class Game {
     bool is_paused() const {
         return paused_;
     }
-    
+
     bool is_finished() const {
         return finished_;
     }

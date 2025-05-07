@@ -20,6 +20,9 @@ class Mario {
     bool grounded_ = false;
     bool looking_left_ = false;
     bool jumping_ = false;
+    bool rush_ = false;
+    int rush_time_ = 0;
+    int last_rush_ = 0;
 
     char jump_key_;
     char left_key_;
@@ -47,7 +50,7 @@ class Mario {
           id_(id) {}
 
     void paint(pro2::Window& window) const;
-    void jump();
+    void jump(float mult);
     void update(pro2::Window& window, const std::vector<Platform>& platforms, std::vector<Coffee>& cafes, int& total_coffee);
 
     pro2::Pt pos() const {
@@ -84,6 +87,16 @@ class Mario {
     pro2::Pt get_original_pos() {
         looking_left_ = false;
         return original_pos_;
+    }
+
+    void reset_rush () {
+        last_rush_ = 0;
+        rush_ = false;
+
+    }
+
+    pro2::Rect get_hit_box () {
+        return {pos_.x - 3, pos_.y - 17, pos_.x + 11, pos_.y + 1};
     }
 
  private:

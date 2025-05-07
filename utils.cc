@@ -44,4 +44,12 @@ void paint_sprite(pro2::Window& window, pro2::Pt orig, const vector<vector<int>>
     }
 }
 
+bool rects_overlap (const pro2::Rect& rect1, const pro2::Rect& rect2) {
+    // Comprova que no estigui fora
+    return !(rect1.right < rect2.left ||
+             rect1.left > rect2.right ||
+             rect1.top > rect2.bottom ||
+             rect1.bottom < rect2.top);
+}
+
 } // namespace pro2

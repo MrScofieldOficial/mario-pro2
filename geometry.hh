@@ -18,6 +18,21 @@ inline bool operator<(const Pt& a, const Pt& b) {
     return a.x != b.x ? a.x < b.x : a.y < b.y;
 }
 
+/**
+ * @brief Multiplica un punt per un valor
+ */
+inline Pt operator*(const Pt& p, int factor) {
+    return {p.x * factor, p.y * factor};
+}
+
+/**
+ * @brief Multiplica un valor per un punt
+ */
+inline Pt operator*(int factor, const Pt& p) {
+    return p * factor;
+}
+
+
 struct Rect {
     int left, top, right, bottom;
 };

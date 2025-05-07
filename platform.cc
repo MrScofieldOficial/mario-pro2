@@ -3,59 +3,6 @@
 #include "sprites.hh"
 using namespace std;
 
-using pro2::Color;
-
-
-// clang-format off
-// const vector<vector<int>> Platform::brick_platform_texture_ = {
-//  {b, b, b, b, b, b, _}, 
-// 	{b, b, b, b, b, b, _}, 
-// 	{b, b, b, b, b, b, _}, 
-// 	{_, _, _, _, _, _, _},
-//  {b, b, b, _, b, b, b}, 
-// 	{b, b, b, _, b, b, b}, 
-// 	{b, b, b, _, b, b, b}, 
-// 	{_, _, _, _, _, _, _},
-// };
-
-// const vector<vector<int>> Platform::brick_platform_texture_ = {
-//     {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
-//     {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
-//     {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
-//     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
-//     {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
-//     {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
-//     {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
-//     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
-//     {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
-//     {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
-//     {_, b, b, b, b, b, b, b, _, b, b, b, b, b, b, b},
-//     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
-//     {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
-//     {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
-//     {b, b, b, b, _, b, b, b, b, b, b, b, _, b, b, b},
-//     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
-// // };
-// const vector<vector<int>> Platform::cracked_platform_texture_ = {
-//     {b, h, h, h, h, h, h, h, h, _, b, h, h, h, h, b},
-//     {h, b, b, b, b, b, b, b, b, _, h, b, b, b, b, _},
-//     {h, b, b, b, b, b, b, b, b, _, h, b, b, b, b, _},
-//     {h, b, b, b, b, b, b, b, b, _, h, b, b, b, b, _},
-//     {h, b, b, b, b, b, b, b, b, _, h, _, b, b, b, _},
-//     {h, b, b, b, b, b, b, b, b, _, b, _, _, _, _, b},
-//     {h, b, b, b, b, b, b, b, b, _, h, h, h, h, h, _},
-//     {h, b, b, b, b, b, b, b, b, _, h, b, b, b, b, _},
-//     {h, b, b, b, b, b, b, b, b, _, h, b, b, b, b, _},
-//     {h, b, b, b, b, b, b, b, b, _, h, b, b, b, b, _},
-//     {_, _, b, b, b, b, b, b, _, h, b, b, b, b, b, _},
-//     {h, h, _, _, b, b, b, b, _, h, b, b, b, b, b, _},
-//     {h, b, h, h, _, _, _, _, h, b, b, b, b, b, b, _},
-//     {h, b, b, b, h, h, h, _, h, b, b, b, b, b, b, _},
-//     {h, b, b, b, b, b, b, b, h, b, b, b, b, b, _, _},
-//     {_, _, _, _, _, _, _, _, h, _, _, _, _, _, _, b},
-// };
-// // clang-format on
-
 void Platform::paint(pro2::Window& window) const {
     const int xsz = Sprites::platform_textures.at(id_).size();
     const int ysz = Sprites::platform_textures.at(id_)[0].size();

@@ -62,6 +62,18 @@ void paint_sprite(pro2::Window&                        window,
                   const std::vector<std::vector<int>>& sprite,
                   bool                                 mirror);
 
+/**
+ * @brief Mira si els dos rectangles es solapen
+ * 
+ * @param rect1 Primer rectangle 
+ * @param rect2 Segon rectangle 
+ * 
+ * @returns Si els rectangles es solapen
+ */
+bool rects_overlap (const pro2::Rect& rect1, const pro2::Rect& rect2);
+
+
+
 
 }  // namespace pro2
 

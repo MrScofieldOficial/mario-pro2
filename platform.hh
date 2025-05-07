@@ -10,18 +10,14 @@ class Platform {
     int         left_, right_, top_, bottom_;
     std::string id_;
 
-    // static const std::vector<std::vector<int>> brick_platform_texture_;
-    // static const std::vector<std::vector<int>> cracked_platform_texture_;
-
-
  public:
     Platform() : left_(0), right_(0), top_(0), bottom_(0), id_("brick") {}
 
     Platform(const Platform& other)
         : left_(other.left_), right_(other.right_), top_(other.top_), bottom_(other.bottom_), id_(other.id_) {}
 
-    Platform(int left, int right, int top, int bottom, std::string id)
-        : left_(left), right_(right), top_(top), bottom_(bottom), id_(id) {}
+    Platform(int left, int right, int top, int bottom, std::string id, int k)
+        : left_(left * k), right_(right * k - 1), top_(top * k), bottom_(bottom * k), id_(id) {}
 
     void paint(pro2::Window& window) const;
     void paint_top(pro2::Window& window) const;

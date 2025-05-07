@@ -4,20 +4,21 @@
 #include <map>
 #include <vector>
 using namespace std;
+typedef vector<vector<int>> sprite;
+
 
 class Sprites {
  public:
+    static const map<string, sprite> character_sprites;
 
-     static const std::map<std::string, std::vector<std::vector<int>>> character_sprites;
+    static const map<int, sprite> coffe_sprites;
 
-    static const std::map<int, std::vector<std::vector<int>>> coffe_sprites;
+    static const map<string, sprite> signs_sprites;
 
-    static const std::map<std::string, std::vector<std::vector<int>>> signs_sprites;
+    static const map<char, sprite> diccionari;
 
-    static const std::map<char, std::vector<std::vector<int>>> diccionari;
+    static const map<string, sprite> platform_textures;
 
-    static const std::map<std::string, std::vector<std::vector<int>>> platform_textures;
-
-    static const std::map<std::string, std::vector<std::vector<int>>> blocs_especials;
+    static const map<string, sprite> blocs_especials;
 };
 #endif

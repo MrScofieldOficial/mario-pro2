@@ -1,9 +1,5 @@
 #include "sprites.hh"
-#include <iostream>
-#include <vector>
 #include "utils.hh"
-using namespace std;
-using namespace pro2;
 
 const int _ = -1;
 const int r = pro2::red;
@@ -13,7 +9,8 @@ const int y = pro2::yellow;
 const int f = 0x202020;
 const int g = pro2::green;
 const int h = 0x964807;
-const int w = white;
+const int S = 0xde7859;
+const int w = pro2::white;
 const int o = 0x050417;
 const int x = 0xdbdbdb;
 const int z = 0xb5b5b5;
@@ -25,7 +22,7 @@ const int H = 0xfcd8a8;
 const int F = 0xfc9738;
 const int B = 0;
 
-const std::map<std::string, std::vector<std::vector<int>>> Sprites::character_sprites = {
+const map<string, sprite> Sprites::character_sprites = {
 //* MARIO
     {"mario_sprite_normal_", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
@@ -36,6 +33,25 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::character_sp
     {_, _, _, _, o, h, s, h, h, s, s, s, f, s, s, s, o, _, _, _},
     {_, _, _, _, o, h, h, s, s, s, s, f, f, f, f, o, _, _, _, _},
     {_, _, _, _, _, o, o, s, s, s, s, s, s, s, o, _, _, _, _, _},
+    {_, _, _, _, _, o, r, r, b, r, r, r, o, o, o, _, _, _, _, _},
+    {_, _, _, _, o, r, r, r, b, r, r, b, r, r, r, o, _, _, _, _},
+    {_, _, _, o, r, r, r, r, b, b, b, b, r, r, r, r, o, _, _, _},
+    {_, _, _, o, s, s, r, b, y, b, b, y, b, r, s, s, o, _, _, _},
+    {_, _, _, o, s, s, s, o, b, b, b, b, o, s, s, s, o, _, _, _},
+    {_, _, _, o, s, s, o, b, b, b, b, b, b, o, s, s, o, _, _, _},
+    {_, _, _, _, o, o, b, b, b, o, o, b, b, b, o, o, _, _, _, _},
+    {_, _, _, _, o, h, h, h, o, _, _, o, h, h, h, o, _, _, _, _},
+    {_, _, _, o, h, h, h, h, o, _, _, o, h, h, h, h, o, _, _, _},
+    {_, _, _, _, o, o, o, o, _, _, _, _, o, o, o, o, _, _, _, _}}},
+    {"mario_sprite_blushed_normal_", {
+    {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
+    {_, _, _, _, _, _, o, r, r, r, r, r, o, o, o, _, _, _, _, _},
+    {_, _, _, _, _, o, r, r, r, r, r, r, r, r, r, o, _, _, _, _},
+    {_, _, _, _, _, o, h, h, h, S, S, f, S, o, o, _, _, _, _, _},
+    {_, _, _, _, o, h, S, h, S, S, S, f, S, S, S, o, _, _, _, _},
+    {_, _, _, _, o, h, S, h, h, S, S, S, f, S, S, S, o, _, _, _},
+    {_, _, _, _, o, h, h, S, S, S, S, f, f, f, f, o, _, _, _, _},
+    {_, _, _, _, _, o, o, S, S, S, S, S, S, S, o, _, _, _, _, _},
     {_, _, _, _, _, o, r, r, b, r, r, r, o, o, o, _, _, _, _, _},
     {_, _, _, _, o, r, r, r, b, r, r, b, r, r, r, o, _, _, _, _},
     {_, _, _, o, r, r, r, r, b, b, b, b, r, r, r, r, o, _, _, _},
@@ -65,6 +81,25 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::character_sp
     {_, o, h, h, h, b, b, b, b, b, b, o, b, b, o, o, o, o, _, _},
     {_, o, h, o, o, b, b, b, b, o, o, o, o, o, _, _, _, _, _, _},
     {_, _, o, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _, _, _}}},
+    {"mario_sprite_blushed_jump_", {
+    {_, _, _, _, _, _, _, _, _, _, _, _, _, _, o, o, o, _, _, _},
+    {_, _, _, _, _, _, _, o, o, o, o, o, _, o, s, s, s, o, _, _},
+    {_, _, _, _, _, _, o, r, r, r, r, r, o, o, s, s, s, o, _, _},
+    {_, _, _, _, _, o, r, r, r, r, r, r, r, r, o, s, s, o, _, _},
+    {_, _, _, _, _, o, h, h, h, S, S, f, S, o, r, r, r, o, _, _},
+    {_, _, _, _, o, h, S, h, S, S, S, f, S, S, S, r, r, o, _, _},
+    {_, _, _, _, o, h, S, h, h, S, S, S, f, S, S, S, r, o, _, _},
+    {_, _, _, _, o, h, h, S, S, S, S, f, f, f, f, r, o, _, _, _},
+    {_, _, _, o, o, o, o, S, S, S, S, S, S, S, r, r, o, _, _, _},
+    {_, _, o, r, r, r, r, r, b, r, r, r, b, r, r, o, _, _, _, _},
+    {_, o, r, r, r, r, r, r, r, b, r, r, r, b, o, _, _, o, _, _},
+    {o, s, s, r, r, o, r, r, r, b, b, b, b, y, b, o, o, h, o, _},
+    {o, s, s, s, o, o, b, r, b, b, b, b, b, b, b, b, h, h, o, _},
+    {_, o, s, o, h, o, b, b, b, b, y, b, b, b, b, b, h, h, o, _},
+    {_, _, o, h, h, h, b, b, b, b, b, b, o, b, b, b, h, h, o, _},
+    {_, o, h, h, h, b, b, b, b, b, b, o, b, b, o, o, o, o, _, _},
+    {_, o, h, o, o, b, b, b, b, o, o, o, o, o, _, _, _, _, _, _},
+    {_, _, o, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _, _, _}}},
     {"mario_sprite_run_0", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, r, r, r, r, r, o, o, o, _, _, _, _, _},
@@ -74,6 +109,25 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::character_sp
     {_, _, _, _, o, h, s, h, h, s, s, s, f, s, s, s, o, _, _, _},
     {_, _, _, _, o, h, h, s, s, s, s, f, f, f, f, o, _, _, _, _},
     {_, _, _, _, o, o, o, s, s, s, s, s, s, s, o, _, _, _, _, _},
+    {_, _, o, o, r, r, r, r, b, r, r, r, b, o, o, o, o, o, _, _},
+    {_, o, s, s, r, r, r, r, b, b, r, r, r, b, r, s, s, s, o, _},
+    {_, o, s, s, s, o, r, r, b, b, b, b, b, b, r, r, s, s, o, _},
+    {_, o, s, s, o, o, b, b, b, y, b, b, b, y, o, o, h, o, _, _},
+    {_, _, o, o, o, b, b, b, b, b, b, b, b, b, b, h, h, o, _, _},
+    {_, _, _, o, b, b, b, b, b, b, b, b, b, b, b, h, h, o, _, _},
+    {_, _, o, h, h, b, b, b, o, o, o, b, b, b, b, h, h, o, _, _},
+    {_, _, o, h, h, h, o, o, _, _, _, o, o, o, o, o, o, _, _, _},
+    {_, _, _, o, h, h, h, o, _, _, _, _, _, _, _, _, _, _, _, _},
+    {_, _, _, _, o, o, o, _, _, _, _, _, _, _, _, _, _, _, _, _}}},
+    {"mario_sprite_blushed_run_0", {
+    {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
+    {_, _, _, _, _, _, o, r, r, r, r, r, o, o, o, _, _, _, _, _},
+    {_, _, _, _, _, o, r, r, r, r, r, r, r, r, r, o, _, _, _, _},
+    {_, _, _, _, _, o, h, h, h, S, S, f, S, o, o, _, _, _, _, _},
+    {_, _, _, _, o, h, S, h, S, S, S, f, S, S, S, o, _, _, _, _},
+    {_, _, _, _, o, h, S, h, h, S, S, S, f, S, S, S, o, _, _, _},
+    {_, _, _, _, o, h, h, S, S, S, S, f, f, f, f, o, _, _, _, _},
+    {_, _, _, _, o, o, o, S, S, S, S, S, S, S, o, _, _, _, _, _},
     {_, _, o, o, r, r, r, r, b, r, r, r, b, o, o, o, o, o, _, _},
     {_, o, s, s, r, r, r, r, b, b, r, r, r, b, r, s, s, s, o, _},
     {_, o, s, s, s, o, r, r, b, b, b, b, b, b, r, r, s, s, o, _},
@@ -103,6 +157,25 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::character_sp
     {_, _, _, o, h, o, o, o, o, h, h, h, o, _, _, _, _, _, _, _},
     {_, _, _, _, o, _, _, _, _, o, h, h, h, o, _, _, _, _, _, _},
     {_, _, _, _, _, _, _, _, _, _, o, o, o, _, _, _, _, _, _, _}}},
+    {"mario_sprite_blushed_run_1", {
+    {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
+    {_, _, _, _, _, _, o, r, r, r, r, r, o, o, o, _, _, _, _, _},
+    {_, _, _, _, _, o, r, r, r, r, r, r, r, r, r, o, _, _, _, _},
+    {_, _, _, _, _, o, h, h, h, S, S, f, S, o, o, _, _, _, _, _},
+    {_, _, _, _, o, h, S, h, S, S, S, f, S, S, S, o, _, _, _, _},
+    {_, _, _, _, o, h, S, h, h, S, S, S, f, S, S, S, o, _, _, _},
+    {_, _, _, _, o, h, h, S, S, S, S, f, f, f, f, o, _, _, _, _},
+    {_, _, _, _, _, o, o, S, S, S, S, S, S, S, o, _, _, _, _, _},
+    {_, _, _, _, _, _, _, o, r, r, b, b, r, o, o, _, _, _, _, _},
+    {_, _, _, _, _, o, o, r, r, r, r, b, r, s, s, o, _, _, _, _},
+    {_, _, _, _, o, s, s, r, r, r, r, r, r, s, s, s, o, _, _, _},
+    {_, _, _, o, s, s, s, b, r, r, r, r, r, s, s, o, _, _, _, _},
+    {_, _, _, _, o, h, h, b, b, b, b, b, b, b, o, _, _, _, _, _},
+    {_, _, _, _, o, h, b, b, b, b, b, b, b, b, o, _, _, _, _, _},
+    {_, _, _, o, h, h, b, b, o, o, b, b, b, o, _, _, _, _, _, _},
+    {_, _, _, o, h, o, o, o, o, h, h, h, o, _, _, _, _, _, _, _},
+    {_, _, _, _, o, _, _, _, _, o, h, h, h, o, _, _, _, _, _, _},
+    {_, _, _, _, _, _, _, _, _, _, o, o, o, _, _, _, _, _, _, _}}},
     {"mario_sprite_run_2", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, r, r, r, r, r, o, o, o, _, _, _, _, _},
@@ -112,6 +185,24 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::character_sp
     {_, _, _, _, o, h, s, h, h, s, s, s, f, s, s, s, o, _, _, _},
     {_, _, _, _, o, h, h, s, s, s, s, f, f, f, f, o, _, _, _, _},
     {_, _, _, _, _, o, o, s, s, s, s, s, s, s, o, _, _, _, _, _},
+    {_, _, _, _, _, o, r, r, r, b, r, r, o, o, _, _, _, _, _, _},
+    {_, _, _, _, o, r, r, r, r, b, b, r, r, o, _, _, _, _, _, _},
+    {_, _, _, _, o, r, r, r, b, b, y, b, b, o, _, _, _, _, _, _},
+    {_, _, _, _, o, r, r, r, r, b, b, b, b, o, _, _, _, _, _, _},
+    {_, _, _, _, o, b, r, r, s, s, b, b, b, o, _, _, _, _, _, _},
+    {_, _, _, _, _, o, b, r, s, s, b, b, o, _, _, _, _, _, _, _},
+    {_, _, _, _, _, _, o, b, b, b, h, h, h, o, _, _, _, _, _, _},
+    {_, _, _, _, _, _, o, h, h, h, h, o, o, _, _, _, _, _, _, _},
+    {_, _, _, _, _, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _}}},
+    {"mario_sprite_blushed_run_2", {
+    {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
+    {_, _, _, _, _, _, o, r, r, r, r, r, o, o, o, _, _, _, _, _},
+    {_, _, _, _, _, o, r, r, r, r, r, r, r, r, r, o, _, _, _, _},
+    {_, _, _, _, _, o, h, h, h, S, S, f, S, o, o, _, _, _, _, _},
+    {_, _, _, _, o, h, S, h, s, S, S, f, S, S, S, o, _, _, _, _},
+    {_, _, _, _, o, h, S, h, h, S, S, S, f, S, S, S, o, _, _, _},
+    {_, _, _, _, o, h, h, S, S, S, S, f, f, f, f, o, _, _, _, _},
+    {_, _, _, _, _, o, o, S, S, S, S, S, S, S, o, _, _, _, _, _},
     {_, _, _, _, _, o, r, r, r, b, r, r, o, o, _, _, _, _, _, _},
     {_, _, _, _, o, r, r, r, r, b, b, r, r, o, _, _, _, _, _, _},
     {_, _, _, _, o, r, r, r, b, b, y, b, b, o, _, _, _, _, _, _},
@@ -141,6 +232,25 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::character_sp
     {_, _, _, _, o, h, h, h, o, _, _, o, h, h, h, o, _, _, _, _},
     {_, _, _, o, h, h, h, h, o, _, _, o, h, h, h, h, o, _, _, _},
     {_, _, _, _, o, o, o, o, _, _, _, _, o, o, o, o, _, _, _, _}}},
+    {"luigi_sprite_blushed_normal_", {
+    {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
+    {_, _, _, _, _, _, o, g, g, g, g, g, o, o, o, _, _, _, _, _},
+    {_, _, _, _, _, o, g, g, g, g, g, g, g, g, g, o, _, _, _, _},
+    {_, _, _, _, _, o, h, h, h, S, S, f, S, o, o, _, _, _, _, _},
+    {_, _, _, _, o, h, S, h, S, S, S, f, S, S, S, o, _, _, _, _},
+    {_, _, _, _, o, h, S, h, h, S, S, S, f, S, S, S, o, _, _, _},
+    {_, _, _, _, o, h, h, S, S, S, S, f, f, f, f, o, _, _, _, _},
+    {_, _, _, _, _, o, o, S, S, S, S, S, S, S, o, _, _, _, _, _},
+    {_, _, _, _, _, o, g, g, b, g, g, g, o, o, o, _, _, _, _, _},
+    {_, _, _, _, o, g, g, g, b, g, g, b, g, g, g, o, _, _, _, _},
+    {_, _, _, o, g, g, g, g, b, b, b, b, g, g, g, g, o, _, _, _},
+    {_, _, _, o, s, s, g, b, y, b, b, y, b, g, s, s, o, _, _, _},
+    {_, _, _, o, s, s, s, o, b, b, b, b, o, s, s, s, o, _, _, _},
+    {_, _, _, o, s, s, o, b, b, b, b, b, b, o, s, s, o, _, _, _},
+    {_, _, _, _, o, o, b, b, b, o, o, b, b, b, o, o, _, _, _, _},
+    {_, _, _, _, o, h, h, h, o, _, _, o, h, h, h, o, _, _, _, _},
+    {_, _, _, o, h, h, h, h, o, _, _, o, h, h, h, h, o, _, _, _},
+    {_, _, _, _, o, o, o, o, _, _, _, _, o, o, o, o, _, _, _, _}}},
     {"luigi_sprite_jump_", {
     {_, _, _, _, _, _, _, _, _, _, _, _, _, _, o, o, o, _, _, _},
     {_, _, _, _, _, _, _, o, o, o, o, o, _, o, s, s, s, o, _, _},
@@ -160,6 +270,25 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::character_sp
     {_, o, h, h, h, b, b, b, b, b, b, o, b, b, o, o, o, o, _, _},
     {_, o, h, o, o, b, b, b, b, o, o, o, o, o, _, _, _, _, _, _},
     {_, _, o, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _, _, _}}},
+    {"luigi_sprite_blushed_jump_", {
+    {_, _, _, _, _, _, _, _, _, _, _, _, _, _, o, o, o, _, _, _},
+    {_, _, _, _, _, _, _, o, o, o, o, o, _, o, s, s, s, o, _, _},
+    {_, _, _, _, _, _, o, g, g, g, g, g, o, o, s, s, s, o, _, _},
+    {_, _, _, _, _, o, g, g, g, g, g, g, g, g, o, s, s, o, _, _},
+    {_, _, _, _, _, o, h, h, h, S, S, f, S, o, g, g, g, o, _, _},
+    {_, _, _, _, o, h, S, h, S, S, S, f, S, S, S, g, g, o, _, _},
+    {_, _, _, _, o, h, S, h, h, S, S, S, f, S, S, S, g, o, _, _},
+    {_, _, _, _, o, h, h, S, S, S, S, f, f, f, f, g, o, _, _, _},
+    {_, _, _, o, o, o, o, S, S, S, S, S, S, S, g, g, o, _, _, _},
+    {_, _, o, g, g, g, g, g, b, g, g, g, b, g, g, o, _, _, _, _},
+    {_, o, g, g, g, g, g, g, g, b, g, g, g, b, o, _, _, o, _, _},
+    {o, s, s, g, g, o, g, g, g, b, b, b, b, y, b, o, o, h, o, _},
+    {o, s, s, s, o, o, b, g, b, b, b, b, b, b, b, b, h, h, o, _},
+    {_, o, s, o, h, o, b, b, b, b, y, b, b, b, b, b, h, h, o, _},
+    {_, _, o, h, h, h, b, b, b, b, b, b, o, b, b, b, h, h, o, _},
+    {_, o, h, h, h, b, b, b, b, b, b, o, b, b, o, o, o, o, _, _},
+    {_, o, h, o, o, b, b, b, b, o, o, o, o, o, _, _, _, _, _, _},
+    {_, _, o, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _, _, _}}},
     {"luigi_sprite_run_0", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, g, g, g, g, g, o, o, o, _, _, _, _, _},
@@ -169,6 +298,25 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::character_sp
     {_, _, _, _, o, h, s, h, h, s, s, s, f, s, s, s, o, _, _, _},
     {_, _, _, _, o, h, h, s, s, s, s, f, f, f, f, o, _, _, _, _},
     {_, _, _, _, o, o, o, s, s, s, s, s, s, s, o, _, _, _, _, _},
+    {_, _, o, o, g, g, g, g, b, g, g, g, b, o, o, o, o, o, _, _},
+    {_, o, s, s, g, g, g, g, b, b, g, g, g, b, g, s, s, s, o, _},
+    {_, o, s, s, s, o, g, g, b, b, b, b, b, b, g, g, s, s, o, _},
+    {_, o, s, s, o, o, b, b, b, y, b, b, b, y, o, o, h, o, _, _},
+    {_, _, o, o, o, b, b, b, b, b, b, b, b, b, b, h, h, o, _, _},
+    {_, _, _, o, b, b, b, b, b, b, b, b, b, b, b, h, h, o, _, _},
+    {_, _, o, h, h, b, b, b, o, o, o, b, b, b, b, h, h, o, _, _},
+    {_, _, o, h, h, h, o, o, _, _, _, o, o, o, o, o, o, _, _, _},
+    {_, _, _, o, h, h, h, o, _, _, _, _, _, _, _, _, _, _, _, _},
+    {_, _, _, _, o, o, o, _, _, _, _, _, _, _, _, _, _, _, _, _}}},
+    {"luigi_sprite_blushed_run_0", {
+    {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
+    {_, _, _, _, _, _, o, g, g, g, g, g, o, o, o, _, _, _, _, _},
+    {_, _, _, _, _, o, g, g, g, g, g, g, g, g, g, o, _, _, _, _},
+    {_, _, _, _, _, o, h, h, h, S, S, f, S, o, o, _, _, _, _, _},
+    {_, _, _, _, o, h, S, h, S, S, S, f, S, S, S, o, _, _, _, _},
+    {_, _, _, _, o, h, S, h, h, S, S, S, f, S, S, S, o, _, _, _},
+    {_, _, _, _, o, h, h, S, S, S, S, f, f, f, f, o, _, _, _, _},
+    {_, _, _, _, o, o, o, S, S, S, S, S, S, S, o, _, _, _, _, _},
     {_, _, o, o, g, g, g, g, b, g, g, g, b, o, o, o, o, o, _, _},
     {_, o, s, s, g, g, g, g, b, b, g, g, g, b, g, s, s, s, o, _},
     {_, o, s, s, s, o, g, g, b, b, b, b, b, b, g, g, s, s, o, _},
@@ -198,6 +346,25 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::character_sp
     {_, _, _, o, h, o, o, o, o, h, h, h, o, _, _, _, _, _, _, _},
     {_, _, _, _, o, _, _, _, _, o, h, h, h, o, _, _, _, _, _, _},
     {_, _, _, _, _, _, _, _, _, _, o, o, o, _, _, _, _, _, _, _}}},
+    {"luigi_sprite_blushed_run_1", {
+    {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
+    {_, _, _, _, _, _, o, g, g, g, g, g, o, o, o, _, _, _, _, _},
+    {_, _, _, _, _, o, g, g, g, g, g, g, g, g, g, o, _, _, _, _},
+    {_, _, _, _, _, o, h, h, h, S, S, f, S, o, o, _, _, _, _, _},
+    {_, _, _, _, o, h, S, h, S, S, S, f, S, S, S, o, _, _, _, _},
+    {_, _, _, _, o, h, S, h, h, S, S, S, f, S, S, S, o, _, _, _},
+    {_, _, _, _, o, h, h, S, S, S, S, f, f, f, f, o, _, _, _, _},
+    {_, _, _, _, _, o, o, S, S, S, S, S, S, S, o, _, _, _, _, _},
+    {_, _, _, _, _, _, _, o, g, g, b, b, g, o, o, _, _, _, _, _},
+    {_, _, _, _, _, o, o, g, g, g, g, b, g, s, s, o, _, _, _, _},
+    {_, _, _, _, o, s, s, g, g, g, g, g, g, s, s, s, o, _, _, _},
+    {_, _, _, o, s, s, s, b, g, g, g, g, g, s, s, o, _, _, _, _},
+    {_, _, _, _, o, h, h, b, b, b, b, b, b, b, o, _, _, _, _, _},
+    {_, _, _, _, o, h, b, b, b, b, b, b, b, b, o, _, _, _, _, _},
+    {_, _, _, o, h, h, b, b, o, o, b, b, b, o, _, _, _, _, _, _},
+    {_, _, _, o, h, o, o, o, o, h, h, h, o, _, _, _, _, _, _, _},
+    {_, _, _, _, o, _, _, _, _, o, h, h, h, o, _, _, _, _, _, _},
+    {_, _, _, _, _, _, _, _, _, _, o, o, o, _, _, _, _, _, _, _}}},
     {"luigi_sprite_run_2", {
     {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, g, g, g, g, g, o, o, o, _, _, _, _, _},
@@ -215,12 +382,30 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::character_sp
     {_, _, _, _, _, o, b, g, s, s, b, b, o, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, b, b, b, h, h, h, o, _, _, _, _, _, _},
     {_, _, _, _, _, _, o, h, h, h, h, o, o, _, _, _, _, _, _, _},
+    {_, _, _, _, _, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _}}},
+    {"luigi_sprite_blushed_run_2", {
+    {_, _, _, _, _, _, _, o, o, o, o, o, _, _, _, _, _, _, _, _},
+    {_, _, _, _, _, _, o, g, g, g, g, g, o, o, o, _, _, _, _, _},
+    {_, _, _, _, _, o, g, g, g, g, g, g, g, g, g, o, _, _, _, _},
+    {_, _, _, _, _, o, h, h, h, S, S, f, S, o, o, _, _, _, _, _},
+    {_, _, _, _, o, h, S, h, S, S, S, f, S, S, S, o, _, _, _, _},
+    {_, _, _, _, o, h, S, h, h, S, S, S, f, S, S, S, o, _, _, _},
+    {_, _, _, _, o, h, h, S, S, S, S, f, f, f, f, o, _, _, _, _},
+    {_, _, _, _, _, o, o, S, S, S, S, S, S, S, o, _, _, _, _, _},
+    {_, _, _, _, _, o, g, g, g, b, g, g, o, o, _, _, _, _, _, _},
+    {_, _, _, _, o, g, g, g, g, b, b, g, g, o, _, _, _, _, _, _},
+    {_, _, _, _, o, g, g, g, b, b, y, b, b, o, _, _, _, _, _, _},
+    {_, _, _, _, o, g, g, g, g, b, b, b, b, o, _, _, _, _, _, _},
+    {_, _, _, _, o, b, g, g, s, s, b, b, b, o, _, _, _, _, _, _},
+    {_, _, _, _, _, o, b, g, s, s, b, b, o, _, _, _, _, _, _, _},
+    {_, _, _, _, _, _, o, b, b, b, h, h, h, o, _, _, _, _, _, _},
+    {_, _, _, _, _, _, o, h, h, h, h, o, o, _, _, _, _, _, _, _},
     {_, _, _, _, _, _, _, o, o, o, o, _, _, _, _, _, _, _, _, _}}}
 };
 
 
 //* CAFE
-const std::map<int, std::vector<std::vector<int>>> Sprites::coffe_sprites = {
+const map<int, sprite> Sprites::coffe_sprites = {
     {0, {
     {_, _, o, o, o, o, o, o, o, o, o, _, _}, 
     {_, o, w, w, w, w, w, w, w, w, w, o, _},
@@ -598,7 +783,7 @@ const std::map<int, std::vector<std::vector<int>>> Sprites::coffe_sprites = {
 };
 
 //* FLETXES
-const std::map<std::string, std::vector<std::vector<int>>> Sprites::signs_sprites = {
+const map<string, sprite> Sprites::signs_sprites = {
     {"right_arrow", {
         {_, _, _, _, _, _, _, _, _, _, B, B, B, B, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
         {_, _, _, _, _, _, _, _, _, B, h, h, h, h, m, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
@@ -671,7 +856,7 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::signs_sprite
 
 
 //* LLETRES
-const std::map<char, std::vector<std::vector<int>>> Sprites::diccionari = {
+const map<char, sprite> Sprites::diccionari = {
     {'1',
      {{_, _, _, w, w, _, _},
       {_, _, w, w, w, _, _},
@@ -1197,7 +1382,7 @@ const std::map<char, std::vector<std::vector<int>>> Sprites::diccionari = {
 
 //* PLATAFORMES
 
-const std::map<std::string, std::vector<std::vector<int>>> Sprites::platform_textures = {
+const map<string, sprite> Sprites::platform_textures = {
     {"brick", {
         {B, M, M, M, M, M, M, M, B, M, M, M, M, M, M, M},
         {B, M, M, M, M, M, M, M, B, M, M, M, M, M, M, M},
@@ -1236,7 +1421,7 @@ const std::map<std::string, std::vector<std::vector<int>>> Sprites::platform_tex
 };
 
 //* Blocs especials
-const std::map<std::string, std::vector<std::vector<int>>> Sprites::blocs_especials = {
+const map<string, sprite> Sprites::blocs_especials = {
     {"interrogant", {
         {_, M, M, M, M, M, M, M, M, M, M, M, M, M, M, _},
         {M, F, F, F, F, F, F, F, F, F, F, F, F, F, F, B},

@@ -17,17 +17,6 @@ void Coffee::paint(pro2::Window& window) const {
     paint_sprite(window, top_left, Sprites::coffe_sprites.at(sprite_id), false);
 }
 
-bool Coffee::can_collect_coin (pro2::Pt character_pos) {
-    bool horizontal, vertical, inside;
-    pro2::Rect character_hit_box = {character_pos.x - 3, character_pos.y - 17, character_pos.x + 11, character_pos.y + 1};
-    // Calcula la condició horitzontal perquè el cafè sigui recolectat
-    horizontal = (character_hit_box.top >= coffee_hit_box_.top && character_hit_box.top <= coffee_hit_box_.bottom ||
-                  character_hit_box.bottom >= coffee_hit_box_.top && character_hit_box.bottom <= coffee_hit_box_.bottom);
-    // Calcula la condició vertical perquè el cafè sigui recolectat
-    vertical = (character_hit_box.left >= coffee_hit_box_.left && character_hit_box.left <= coffee_hit_box_.right ||
-                character_hit_box.right >= coffee_hit_box_.left && character_hit_box.right <= coffee_hit_box_.right);
-    // Calcula si els dos rectangles es superposen completament
-    inside = (character_hit_box.left <= coffee_hit_box_.left && character_hit_box.right >=  coffee_hit_box_.right &&
-              character_hit_box.top <= coffee_hit_box_.top && character_hit_box.bottom >= coffee_hit_box_.bottom);
-    return (horizontal && vertical) || inside;
+bool Coffee::can_collect_coin (const pro2::Rect& mario_hit_box, const pro2::Rect& luigi_hit_box) {
+    return rects_overlap (mario_hit_box, coffee_hit_box_) || rects_overlap (luigi_hit_box, coffee_hit_box_);
 }
