@@ -8,54 +8,63 @@
 namespace pro2 {
 
 /**
- * @brief Dibuja una línea horizontal en la ventana.
+ * @brief Dibuixa una línia horitzontal a la finestra.
  *
- * @param window Ventana en la que se dibuja la línea.
+ * @param window Finestra on es dibuixa la línia.
  * @param xini Coordenada x inicial.
  * @param xfin Coordenada x final.
  * @param y Coordenada y.
- * @param color Color de la línea (opcional, si no se pone se asume `white`).
+ * @param color Color de la línia (valor per defecte: blanc).
  */
 void paint_hline(pro2::Window& window, int xini, int xfin, int y, pro2::Color color = pro2::white);
 
 /**
- * @brief Dibuja una línea horizontal en la ventana si el píxel de arriba es de color cielo.
+ * @brief Dibuixa una línia horitzontal només si el píxel de sobre és del color del cel.
  *
- * @param window Ventana en la que se dibuja la línea.
+ * @param window Finestra on es dibuixa la línia.
  * @param xini Coordenada x inicial.
  * @param xfin Coordenada x final.
  * @param y Coordenada y.
- * @param color Color de la línea (opcional, si no se pone se asume `white`).
+ * @param color Color de la línia (valor per defecte: 0xfcd8a9).
  */
 void paint_hline_top_platforms(pro2::Window& window, int xini, int xfin, int y, pro2::Color color = 0xfcd8a9);
 
 /**
- * @brief Dibuja una línea vertical en la ventana.
+ * @brief Dibuixa una línia vertical a la finestra.
  *
- * @param window Ventana en la que se dibuja la línea.
+ * @param window Finestra on es dibuixa la línia.
  * @param x Coordenada x.
  * @param yini Coordenada y inicial.
  * @param yfin Coordenada y final.
- * @param color Color de la línea (opcional, si no se pone se asume `white`).
+ * @param color Color de la línia (valor per defecte: blanc).
  */
 void paint_vline(pro2::Window& window, int x, int yini, int yfin, pro2::Color color = pro2::white);
 
 /**
- * @brief Dibuja una rectangulo en la ventana.
+ * @brief Dibuixa un rectangle a la finestra.
  *
- * @param window Ventana en la que se dibuja la línea.
- * @param rect Rectangulo
- * @param color Color de la línea (opcional, si no se pone se asume `white`).
+ * @param window Finestra on es dibuixa el rectangle.
+ * @param rect Rectangle a pintar.
+ * @param color Color del contorn (valor per defecte: negre).
  */
-void paint_rect(pro2::Window& window, pro2::Rect rect, pro2::Color color = pro2::white);
+void paint_rect(pro2::Window& window, pro2::Rect rect, pro2::Color color = pro2::black);
 
 /**
- * @brief Dibuixa una imatge/textura a la finestra a partir d'una posició
+ * @brief Dibuixa el marge d'un rectangle
+ * 
+ * @param window Finestra on es dibuixa el rectangle.
+ * @param rect Rectangle per pintar el marge.
+ * @param color Color del contorn (valor per defecte: blanc).
+ */
+void paint_rect_outline(pro2::Window& window, pro2::Rect rect, pro2::Color color = pro2::white);
+
+/**
+ * @brief Dibuixa una imatge/textura a la finestra a partir d'una posició.
  *
- * @param window Finestra a la que pintar
- * @param orig   Origen (cantonada de dalt a l'esquerra) del rectangle que forma el _sprite_
- * @param sprite Matriu de colors que representa la imatge (_sprite_).
- * @param mirror Si cal pintar girar la textura horitzontalment
+ * @param window Finestra a la que pintar.
+ * @param orig Origen (cantonada superior esquerra) del rectangle que forma el sprite.
+ * @param sprite Matriu de colors que representa la imatge (sprite).
+ * @param mirror Si cal pintar la textura girada horitzontalment.
  */
 void paint_sprite(pro2::Window&                        window,
                   pro2::Pt                             orig,
@@ -63,17 +72,14 @@ void paint_sprite(pro2::Window&                        window,
                   bool                                 mirror);
 
 /**
- * @brief Mira si els dos rectangles es solapen
+ * @brief Comprova si dos rectangles es solapen.
  * 
- * @param rect1 Primer rectangle 
- * @param rect2 Segon rectangle 
+ * @param rect1 Primer rectangle. 
+ * @param rect2 Segon rectangle. 
  * 
- * @returns Si els rectangles es solapen
+ * @returns Cert si els rectangles es solapen.
  */
-bool rects_overlap (const pro2::Rect& rect1, const pro2::Rect& rect2);
-
-
-
+bool rects_overlap(const pro2::Rect& rect1, const pro2::Rect& rect2);
 
 }  // namespace pro2
 

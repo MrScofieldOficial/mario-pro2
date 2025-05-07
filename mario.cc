@@ -29,6 +29,16 @@ void Mario::paint(pro2::Window& window) const {
     }
 }
 
+void Mario::paint_rush_bar(pro2::Window& window, pro2::Pt cam) {
+    if (rush_) {
+        int bar_lenght = 70, percent = (rush_time_ * bar_lenght) / rush_time_max_;
+        int right = cam.x + window.width() / 3 + 70, top = cam.y - window.height() / 2.5 + 6;
+        pro2::Rect rect = {right - bar_lenght + percent, top, right, top + 7};
+        paint_rect(window, rect, 0x824217);
+        paint_rect_outline(window, rect, 0xf5e59d);
+    }
+}
+
 void Mario::apply_physics_() {
     if (grounded_) {    
         jumping_ = false;
@@ -62,22 +72,24 @@ void Mario::jump(float mult) {
 }
 
 void Mario::update(pro2::Window& window, const vector<Platform>& platforms, vector<Coffee>& cafes, int& total_coffee) {
-    float mult = 1;
+    float run_mult = 1;
+    float jump_mult = 1;
     if (rush_) {
-        mult = 1.5;
+        jump_mult = 1.3;
+        run_mult = 1.5;
     }
 
     last_pos_ = pos_;
     if (window.is_key_down(jump_key_)) {
-        jump(mult);
+        jump(jump_mult);
     }
 
     // Velocitat horitzontal
     speed_.x = 0;
     if (window.is_key_down(left_key_)) {
-        speed_.x = -4 * mult;
+        speed_.x = -4 * run_mult;
     } else if (window.is_key_down(right_key_)) {
-        speed_.x = 4 * mult;
+        speed_.x = 4 * run_mult;
     }
     if (speed_.x != 0) {
         looking_left_ = speed_.x < 0;
@@ -106,12 +118,12 @@ void Mario::update(pro2::Window& window, const vector<Platform>& platforms, vect
 
     // Calculates all the rush logic
     if (!rush_) {
-        if (total_coffee % 10 == 0 && total_coffee != last_rush_) {
+        if (total_coffee % 14 == 0 && total_coffee != last_rush_) {
             rush_ = true;
             last_rush_ = total_coffee;
         }
     } else {
-        if (rush_time_ <= 50) {
+        if (rush_time_ <= rush_time_max_) {
             rush_time_++;
         }
         else {

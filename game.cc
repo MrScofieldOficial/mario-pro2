@@ -7,30 +7,41 @@ const int k = 16;
 Game::Game(int width, int height)
     : mario_({3 * k, 20 * k}, 0),
       luigi_({3 * k, 16 * k}, 'W', 'A', 'D', 1),
-      platforms_{
-          Platform(-1, 0, 0, 23, "cracked", k), Platform(0, 6, 16, 17, "brick", k),
-          Platform(13, 27, 17, 18, "brick", k), Platform(0, 30, 20, 23, "cracked", k),
-          Platform(23, 36, 14, 15, "brick", k), Platform(5, 24, 9, 10, "brick", k),
-          Platform(27, 28, 13, 14, "brick", k),
-      },
-      cafes_ {
-        Coffee ({27 * k, 12 * k}, k),
-        Coffee({26 * k, 13 * k}, k),
-      },
       finished_(false),
       paused_(false),
       following_(true),
       cooldown_keys_(0),
       total_coffees_(0),
       win_condition_(false),
-      game_over_(false) {
-        for (int i = 1; i < 20; i++) {
-            platforms_.push_back(Platform(23 + i * 17, 36 + i * 17, 14 + (i % 2), 15 + (i % 2), "brick", k));
-            add_coffees(cafes_, {20 + 17 * i, 10}, 5, -2);
-        }
-        add_coffees(cafes_, {18 , 8}, 5, 0, 5);
-        add_coffees(cafes_, {21, 16}, 4, 0, 4);
-      }
+      game_over_(false)
+{
+    init_platforms();
+    init_coffees();
+}
+
+void Game::init_platforms() {
+    platforms_ = {
+        Platform(-1, 0, 0, 23, "cracked", k), Platform(0, 30, 20, 23, "cracked", k),
+        Platform(0, 6, 16, 17, "brick", k),   Platform(13, 27, 17, 18, "brick", k), 
+        Platform(23, 36, 14, 15, "brick", k), Platform(5, 24, 9, 10, "brick", k),
+        Platform(27, 13, "brick", k),
+    };
+    for (int i = 1; i < 20; i++) {
+        platforms_.push_back(Platform(23 + i * 17, 36 + i * 17, 14 + (i % 2), 15 + (i % 2), "brick", k));
+    }
+}
+
+void Game::init_coffees() {
+    cafes_ = {
+        Coffee({27 * k, 12 * k}, k),
+        Coffee({26 * k, 13 * k}, k),
+    };
+    for (int i = 1; i < 20; i++) {
+        add_coffees(cafes_, {20 + 17 * i, 10}, 5, -2);
+    }
+    add_coffees(cafes_, {18 , 8}, 5, 0, 5);
+    add_coffees(cafes_, {21, 16}, 4, 0, 4);
+}
 
 // Afegeix cafes en paràbola o linia recta de manera senzilla
 // En linia millor que num = width - 1 i en paràbola num = 5
@@ -116,7 +127,7 @@ void Game::update_objects(pro2::Window& window) {
     for (Coffee& coffee : cafes_) {
         pro2::Rect mario_hit_box = mario_.get_hit_box(), luigi_hit_box = luigi_.get_hit_box();
         if (!coffee.is_colected()) {
-            coffee.set_colect(coffee.can_collect_coin(mario_hit_box, luigi_hit_box), total_coffees_);
+            coffee.set_colect(coffee.can_collect_coffee(mario_hit_box, luigi_hit_box), total_coffees_);
         }
     }
 }
@@ -131,10 +142,10 @@ void Game::update_camera(pro2::Window& window) {
     }
 
     const Pt cam = window.camera_center();
-    const int left = cam.x - window.width() / 4;
-    const int right = cam.x + window.width() / 4;
-    const int bottom = cam.y + window.height() / 4;
-    const int top = cam.y - window.height() / 4;
+    const int left = cam.x - window.width() / 4.5;
+    const int right = cam.x + window.width() / 4.5;
+    const int bottom = cam.y + window.height() / 4.5;
+    const int top = cam.y - window.height() / 4.5;
 
     int dx = 0, dy = 0;
     if (pos.x > right) {
@@ -157,9 +168,6 @@ void Game::update_camera(pro2::Window& window) {
         window.set_camera_topleft({0, cam.y - window.height() / 2});
     }
 
-    //* Per mantenir el mario al centre de la pantalla
-    // dx = pos.x - cam.x;
-    // dy = pos.y - cam.y;
     window.move_camera({dx, dy});
 }
 
@@ -180,7 +188,6 @@ void Game::paint(pro2::Window& window) {
     // No interactuables / fons
     paint_sprite(window, {9 * k, 18 * k}, Sprites::signs_sprites.at("right_arrow"), false);
     paint_sprite(window, {31 * k, 12* k}, Sprites::signs_sprites.at("left_arrow"), false);
-    paint_sprite(window, {18 * k, 13* k}, Sprites::blocs_especials.at("interrogant"), false);
 
     // Plataformes
     for (const Platform& p : platforms_) {
@@ -215,17 +222,19 @@ void Game::paint(pro2::Window& window) {
 
     paint_hline(window, left, right, top, col);
     paint_hline(window, left, right, top + 1, col);
-    paint_hline(window, left, right, bottom - 2, col);
     paint_hline(window, left, right, bottom - 1, col);
-    paint_vline(window, left + 1, top, bottom, col);
+    paint_hline(window, left, right, bottom - 2, col);
     paint_vline(window, left, top, bottom, col);
-    paint_vline(window, right - 2, top, bottom, col);
+    paint_vline(window, left + 1, top, bottom, col);
     paint_vline(window, right - 1, top, bottom, col);
+    paint_vline(window, right - 2, top, bottom, col);
 
     // Comptador de cafes
     paint_num_of_coffee(window, total_coffees_, cam);
 
-    //todo fer que la pantalla de pausa posi el joc més fosc (rectangle negre translucid) (no se com fer que sigui translucid)
+    // Rush restant
+    mario_.paint_rush_bar(window, cam);
+
     // Pantalla de pausa
     if (paused_ && !win_condition_) {
         paint_pause_screen(window, cam);
