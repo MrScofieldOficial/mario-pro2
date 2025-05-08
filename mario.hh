@@ -23,8 +23,9 @@ class Mario {
 
     bool rush_ = false;
     int rush_time_ = 0;
-    int rush_time_max_ = 70;
+    int rush_time_max_ = 100;
     int last_rush_ = 0;
+    int coffee_for_rush = 14;
 
     char jump_key_;
     char left_key_;
@@ -79,7 +80,7 @@ class Mario {
      * @param window Finestra a la que pintar
      * @param cam Posició de la càmera
      */
-    void paint_rush_bar(pro2::Window& window, pro2::Pt cam);
+    void paint_rush_bar(pro2::Window& window, pro2::Pt cam, int total_coffee);
 
 
     /**

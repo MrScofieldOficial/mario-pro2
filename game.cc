@@ -1,3 +1,5 @@
+#include <random>
+#include <cmath>
 #include "game.hh"
 #include "utils.hh"
 #include "sprites.hh"
@@ -17,6 +19,7 @@ Game::Game(int width, int height)
 {
     init_platforms();
     init_coffees();
+    init_clouds();
 }
 
 void Game::init_platforms() {
@@ -24,7 +27,9 @@ void Game::init_platforms() {
         Platform(-1, 0, 0, 23, "cracked", k), Platform(0, 30, 20, 23, "cracked", k),
         Platform(0, 6, 16, 17, "brick", k),   Platform(13, 27, 17, 18, "brick", k), 
         Platform(23, 36, 14, 15, "brick", k), Platform(5, 24, 9, 10, "brick", k),
-        Platform(27, 13, "brick", k),
+        Platform(27, 13, "brick", k),         Platform(17, 19, 4, 5, "brick", k),
+        Platform(20, 35, 1, 2, "cloud", k),   Platform(22, 33, 0, 1, "cloud", k),
+        Platform(28, 32, -1, 0, "cloud", k),  Platform(24, 26, -1, 0, "cloud", k)
     };
     for (int i = 1; i < 20; i++) {
         platforms_.push_back(Platform(23 + i * 17, 36 + i * 17, 14 + (i % 2), 15 + (i % 2), "brick", k));
@@ -43,6 +48,13 @@ void Game::init_coffees() {
     add_coffees(cafes_, {21, 16}, 4, 0, 4);
 }
 
+void Game::init_clouds() {
+    clouds_ = {
+        Cloud({19 * k, 12 * k}, 0), Cloud({24 * k, 7 * k}, 1),
+    };
+    add_clouds(3*k, -10*k, 400*k, 10*k, 100, 200);
+}
+
 // Afegeix cafes en paràbola o linia recta de manera senzilla
 // En linia millor que num = width - 1 i en paràbola num = 5
 void Game::add_coffees(std::vector<Coffee>& cafes_, pro2::Pt center, int width, int height, int num) {
@@ -57,6 +69,34 @@ void Game::add_coffees(std::vector<Coffee>& cafes_, pro2::Pt center, int width, 
         cafes_.push_back(Coffee({x, y}, i % (num * 2 )));
     }
 }
+
+bool Game::is_far_enough(const pro2::Pt& p, int min_dist) {
+    for (const Cloud& c : clouds_) {
+        pro2::Pt dist = p - c.pos();
+        if (dist.x * dist.x + dist.y * dist.y < min_dist * min_dist) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void Game::add_clouds(int left, int top, int right, int bottom, int num_clouds, int min_dist) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis_x(left, right);
+    std::uniform_int_distribution<> dis_y(top, bottom);
+
+    int attempts = 0;
+    const int max_attempts = 1000;
+    while (attempts < max_attempts) {
+        pro2::Pt candidate = {dis_x(gen), dis_y(gen)};
+        if (is_far_enough(candidate, min_dist)) {
+            clouds_.push_back(Cloud(candidate, attempts % 2));
+        }
+        attempts++;
+    }
+}
+
 
 // Torna a l'estat inicial
 void Game::reiniciar(pro2::Window& window) {
@@ -73,11 +113,15 @@ void Game::reiniciar(pro2::Window& window) {
     pos.y -= height / 2;
     window.set_camera_topleft(pos);
 
-    for (Coffee& c : cafes_){
+    for (Coffee& c : cafes_) {
         c.set_colect(false);
     }
     total_coffees_ = 0;
     game_over_ = false;
+
+    for (Cloud& c : clouds_) {
+        c.reset_pos();
+    }
 }
 
 // Llegeix les inputs dels jugadors
@@ -130,6 +174,11 @@ void Game::update_objects(pro2::Window& window) {
             coffee.set_colect(coffee.can_collect_coffee(mario_hit_box, luigi_hit_box), total_coffees_);
         }
     }
+
+    // Update clouds pos for paralax effect
+    for (Cloud& c : clouds_) {
+        c.update(window, window.camera_center());
+    }
 }
 
 // Actualitza la posició de la càmera
@@ -145,7 +194,7 @@ void Game::update_camera(pro2::Window& window) {
     const int left = cam.x - window.width() / 4.5;
     const int right = cam.x + window.width() / 4.5;
     const int bottom = cam.y + window.height() / 4.5;
-    const int top = cam.y - window.height() / 4.5;
+    const int top = cam.y - window.height() / 5.5;
 
     int dx = 0, dy = 0;
     if (pos.x > right) {
@@ -175,8 +224,8 @@ void Game::update_camera(pro2::Window& window) {
 void Game::update(pro2::Window& window) {
     process_keys(window);
     if (!paused_) {
-        update_objects(window);
         update_camera(window);
+        update_objects(window);
     }
 }
 
@@ -185,9 +234,14 @@ void Game::paint(pro2::Window& window) {
     // Cel
     window.clear(sky_blue);
 
+    //Núvols
+    for (const Cloud& c : clouds_) {
+        c.paint(window);
+    }
+
     // No interactuables / fons
     paint_sprite(window, {9 * k, 18 * k}, Sprites::signs_sprites.at("right_arrow"), false);
-    paint_sprite(window, {31 * k, 12* k}, Sprites::signs_sprites.at("left_arrow"), false);
+    paint_sprite(window, {31 * k, 12 * k}, Sprites::signs_sprites.at("left_arrow"), false);
 
     // Plataformes
     for (const Platform& p : platforms_) {
@@ -233,7 +287,7 @@ void Game::paint(pro2::Window& window) {
     paint_num_of_coffee(window, total_coffees_, cam);
 
     // Rush restant
-    mario_.paint_rush_bar(window, cam);
+    mario_.paint_rush_bar(window, cam, total_coffees_);
 
     // Pantalla de pausa
     if (paused_ && !win_condition_) {

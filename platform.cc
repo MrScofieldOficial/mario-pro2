@@ -6,12 +6,11 @@ void Platform::paint(pro2::Window& window) const {
     const int xsz = Sprites::platform_textures.at(id_).size();
     const int ysz = Sprites::platform_textures.at(id_)[0].size();
 
-    for (int i = top_ + 1; i <= bottom_; i++) {
-        for (int j = left_; j <= right_; j++) {
-            window.set_pixel({j, i}, Sprites::platform_textures.at(id_)[(i - top_ - 1) % xsz][(j - left_) % ysz]);
+    for (int i = top_ + 1; i <= bottom_; i += ysz) {
+        for (int j = left_; j <= right_; j += xsz) {
+            paint_sprite(window, {j, i}, Sprites::platform_textures.at(id_), false);
         }
     }
-
     if (id_ == "brick") {
         // Dibuixa una línia superior especial per a plataformes de tipus brick
         paint_hline(window, left_, right_, top_ + 1, 0xfcd8a9);

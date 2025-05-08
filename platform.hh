@@ -6,11 +6,11 @@
 
 class Platform {
  private:
-    int left_;   ///< Coordenada esquerra
-    int right_;  ///< Coordenada dreta
-    int top_;    ///< Coordenada superior
-    int bottom_; ///< Coordenada inferior
-    std::string id_; ///< Identificador de la textura o tipus de plataforma
+    int left_;
+    int right_;
+    int top_;
+    int bottom_;
+    std::string id_;
 
  public:
     /**
@@ -99,6 +99,11 @@ class Platform {
      * @brief Retorna la coordenada esquerra de la plataforma.
      */
     int left() const { return left_; }
+
+    /**
+     * @brief Retorna id de la plataforma.
+     */
+    std::string id() const { return id_; }
 
     /**
      * @brief Retorna el rectangle que representa la plataforma.

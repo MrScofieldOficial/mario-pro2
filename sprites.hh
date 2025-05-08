@@ -38,7 +38,7 @@ class Sprites {
     /**
      * @brief Map amb altres sprites (com blocs especials, decoracions, etc.)
      */
-    static const map<string, sprite> blocs_especials;
+    static const map<string, sprite> altres;
 };
 
 #endif

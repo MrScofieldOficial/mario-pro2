@@ -21,6 +21,8 @@ const int M = 0xc74a0c;
 const int H = 0xfcd8a8;
 const int F = 0xfc9738;
 const int B = 0;
+const int R = 0xd90275;
+const int C = 0x0aadff;
 
 const map<string, sprite> Sprites::character_sprites = {
 //* MARIO
@@ -1416,12 +1418,29 @@ const map<string, sprite> Sprites::platform_textures = {
         {H, M, H, H, B, B, B, B, H, M, M, M, M, M, M, B},
         {H, M, M, M, H, H, H, B, H, M, M, M, M, M, M, B},
         {H, M, M, M, M, M, M, M, H, M, M, M, M, M, B, B},
-        {B, B, B, B, B, B, B, B, H, B, B, B, B, B, B, M}}}
-    
+        {B, B, B, B, B, B, B, B, H, B, B, B, B, B, B, M}}},
+    {"cloud", {
+        {_, _, _, B, B, B, B, B, B, B, B, B, B, _, _, _},
+        {_, _, B, w, w, w, w, w, w, w, w, w, w, B, _, _},
+        {_, B, w, w, w, w, w, w, w, w, w, w, w, w, B, _},
+        {_, B, w, w, w, w, w, w, w, w, w, w, w, w, B, _},
+        {B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B},
+        {B, w, w, w, w, w, B, w, w, B, w, w, w, w, w, B},
+        {B, w, w, w, w, w, B, w, w, B, w, w, w, w, w, B},
+        {B, w, w, w, w, w, B, w, w, B, w, w, w, w, w, B},
+        {B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B},
+        {B, w, w, w, R, w, w, w, w, w, w, R, w, w, w, B},
+        {B, w, w, R, R, w, w, w, w, w, w, R, R, w, w, B},
+        {_, B, w, w, w, R, R, R, R, R, R, w, w, w, B, _},
+        {_, B, w, w, w, w, w, w, w, w, w, w, w, w, B, _},
+        {_, B, w, w, w, w, w, w, w, w, w, w, w, w, B, _},
+        {_, _, B, w, w, w, w, B, B, w, w, w, w, B, _, _},
+        {_, _, _, B, B, B, B, _, _, B, B, B, B, _, _, _}}}
+
 };
 
 //* Blocs especials
-const map<string, sprite> Sprites::blocs_especials = {
+const map<string, sprite> Sprites::altres = {
     {"interrogant", {
         {_, M, M, M, M, M, M, M, M, M, M, M, M, M, M, _},
         {M, F, F, F, F, F, F, F, F, F, F, F, F, F, F, B},
@@ -1439,5 +1458,57 @@ const map<string, sprite> Sprites::blocs_especials = {
         {M, F, B, F, F, F, F, F, B, B, F, F, F, B, F, B},
         {M, F, F, F, F, F, F, F, F, F, F, F, F, F, F, B},
         {B, B, B, B, B, B, B, B, B, B, B, B, B, B, B, B},
-    }}
+    }},
+    {"nuvol_gran", {
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, B, B, B, B, _, _, _, _, _, _, _, _, _, _, _, _, B, B, B, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, w, w, w, w, B, _, _, _, _, _, _, _, _, _, _, B, w, w, w, w, B, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, B, B, w, w, w, w, w, w, B, _, _, _, _, _, _, _, B, B, w, w, w, w, w, w, B, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, B, w, w, w, w, w, w, w, w, B, _, B, _, _, _, _, B, w, w, w, w, w, w, w, w, B, _, B, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, B, w, w, w, w, w, w, w, w, w, B, w, B, _, _, _, B, w, w, w, w, w, w, w, w, w, B, w, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, B, w, w, w, w, w, w, w, C, w, w, w, w, B, _, _, B, w, w, w, w, w, w, w, C, w, w, w, w, B, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, B, w, w, w, C, C, w, w, w, w, C, w, w, w, B, _, B, w, w, w, C, C, w, w, w, w, C, w, w, w, B, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, w, w, w, C, w, w, w, w, w, w, w, w, w, w, B, B, w, w, w, C, w, w, w, w, w, w, w, w, w, w, B, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, B, B, B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B, _, _, B, _, _, _, _},
+        {_, _, _, _, _, B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B, _, B, w, B, _, _, _},
+        {_, _, _, _, B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B, w, w, B, _, _, _},
+        {_, _, _, B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B, _, B, _},
+        {_, B, B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B, w, B},
+        {B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B},
+        {B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B},
+        {_, B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B, _},
+        {_, _, B, w, w, C, w, w, w, w, w, w, w, w, w, w, w, w, C, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, C, w, w, w, w, C, w, w, w, w, w, B, _, _},
+        {_, _, _, B, w, w, C, w, w, C, w, w, w, w, w, w, w, C, w, w, w, w, w, w, w, w, C, w, w, w, w, w, w, w, C, w, w, w, w, w, w, w, w, w, w, w, w, B, _},
+        {_, _, _, _, B, w, w, C, C, C, C, w, w, w, C, C, C, C, C, w, w, w, w, C, w, C, C, C, w, w, w, C, C, C, C, C, w, w, w, C, w, w, w, w, w, w, w, w, B},
+        {_, _, _, _, B, w, w, w, w, w, C, C, C, C, C, C, C, w, C, C, C, C, C, w, w, w, w, C, C, C, C, C, C, C, w, C, C, C, C, w, w, w, w, w, w, w, w, B, _},
+        {_, _, _, _, _, B, B, B, B, w, w, w, C, C, w, w, w, w, w, C, C, C, w, w, w, w, w, w, w, C, C, w, w, w, w, w, C, C, C, w, w, w, w, w, w, w, B, _, _},
+        {_, _, _, _, _, _, _, _, _, B, w, w, w, w, w, w, B, w, w, w, w, w, w, w, w, B, w, w, w, w, w, w, B, w, w, w, w, w, w, w, w, B, w, w, B, B, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, B, B, w, w, w, B, _, B, B, w, w, w, w, B, B, _, B, B, w, w, w, B, _, B, B, w, w, w, w, B, B, _, B, B, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, B, B, B, _, _, _, _, B, B, B, B, _, _, _, _, _, B, B, B, _, _, _, _, B, B, B, B, _, _, _, _, _, _, _, _, _, _}}},
+    {"nuvol_petit", {
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, _, B, B, B, B, _, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, _, _, B, w, w, w, w, B, _, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, B, B, w, w, w, w, w, w, B, _, _, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, B, w, w, w, w, w, w, w, w, B, _, B, _, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, B, w, w, w, w, w, w, w, w, w, B, w, B, _, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, B, w, w, w, w, w, w, w, C, w, w, w, w, B, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, B, w, w, w, C, C, w, w, w, w, C, w, w, w, B, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, B, w, w, w, C, w, w, w, w, w, w, w, w, w, w, B, _, _, _, _, _, _, _, _},
+        {_, _, _, _, _, _, B, B, B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B, _, _, B, _, _, _, _},
+        {_, _, _, _, _, B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B, _, B, w, B, _, _, _},
+        {_, _, _, _, B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B, w, w, B, _, _, _},
+        {_, _, _, B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B, _, B, _},
+        {_, B, B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B, w, B},
+        {B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B},
+        {B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B},
+        {_, B, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, B, _},
+        {_, _, B, w, w, C, w, w, w, w, w, w, w, w, w, w, w, w, w, C, w, w, w, w, C, w, w, w, w, w, B, _, _},
+        {_, _, _, B, w, w, C, w, w, C, w, w, w, w, w, w, w, w, C, w, w, w, w, w, w, w, w, w, w, w, w, B, _},
+        {_, _, _, _, B, w, w, C, C, C, C, C, w, w, w, C, C, C, C, C, w, w, w, C, w, w, w, w, w, w, w, w, B},
+        {_, _, _, _, B, w, w, w, w, w, C, C, C, C, C, C, C, C, w, C, C, C, C, w, w, w, w, w, w, w, w, B, _},
+        {_, _, _, _, _, B, B, B, B, w, w, w, w, C, C, w, w, w, w, w, C, C, C, w, w, w, w, w, w, w, B, _, _},
+        {_, _, _, _, _, _, _, _, _, B, w, w, w, w, w, w, B, w, w, w, w, w, w, w, w, B, w, w, B, B, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, B, B, w, w, w, B, _, B, B, w, w, w, w, B, B, _, B, B, _, _, _, _, _},
+        {_, _, _, _, _, _, _, _, _, _, _, _, B, B, B, _, _, _, _, B, B, B, B, _, _, _, _, _, _, _, _, _, _}}},
+
 };
+

@@ -29,18 +29,24 @@ void Mario::paint(pro2::Window& window) const {
     }
 }
 
-void Mario::paint_rush_bar(pro2::Window& window, pro2::Pt cam) {
+void Mario::paint_rush_bar(pro2::Window& window, pro2::Pt cam, int total_coffee) {
+    int bar_lenght = 70;
+    int right = cam.x + window.width() / 3 + 70, top = cam.y - window.height() / 2.5 + 6;
+    int percent_decrease = 0;
+    int percent_increase = 0;
     if (rush_) {
-        int bar_lenght = 70, percent = (rush_time_ * bar_lenght) / rush_time_max_;
-        int right = cam.x + window.width() / 3 + 70, top = cam.y - window.height() / 2.5 + 6;
-        pro2::Rect rect = {right - bar_lenght + percent, top, right, top + 7};
-        paint_rect(window, rect, 0x824217);
-        paint_rect_outline(window, rect, 0xf5e59d);
+        percent_decrease = (rush_time_ * bar_lenght) / rush_time_max_;
+    } else {
+        percent_increase = bar_lenght - ((total_coffee % coffee_for_rush) * bar_lenght) / coffee_for_rush;
     }
+    pro2::Rect bar = {right - bar_lenght + percent_decrease + percent_increase, top, right, top + 7};
+    paint_rect(window, bar, 0x824217);
+    pro2::Rect outline = {right - bar_lenght, top, right, top + 7};
+    paint_rect_outline(window, outline, 0xf5e59d);
 }
 
 void Mario::apply_physics_() {
-    if (grounded_) {    
+    if (grounded_) {
         jumping_ = false;
         speed_.y = 0;
         accel_.y = 0;
@@ -103,22 +109,23 @@ void Mario::update(pro2::Window& window, const vector<Platform>& platforms, vect
 
     // Check Platform interactions
     for (const Platform& platform : platforms) {
-        if (platform.has_crossed_floor_upwards(last_pos_, pos_)) {
-            set_y(platform.bottom() + 16);
-            speed_.y = 1;
-        } else if (platform.has_crossed_floor_downwards(last_pos_, pos_)) {
+        std::string id = platform.id();
+        if (platform.has_crossed_floor_downwards(last_pos_, pos_)) {
             set_grounded(true);
             set_y(platform.top());
-        } else if (platform.has_crossed_right(last_pos_, pos_)) {
+        } else if (platform.has_crossed_floor_upwards(last_pos_, pos_) && id != "cloud") {
+            set_y(platform.bottom() + 16);
+            speed_.y = 1;
+        } else if (platform.has_crossed_right(last_pos_, pos_) && id != "cloud") {
             set_x(platform.right() + 4);
-        } else if (platform.has_crossed_left(last_pos_, pos_)) {
+        } else if (platform.has_crossed_left(last_pos_, pos_) && id != "cloud") {
             set_x(platform.left() - 11);
         }
     }
 
     // Calculates all the rush logic
     if (!rush_) {
-        if (total_coffee % 14 == 0 && total_coffee != last_rush_) {
+        if (total_coffee % coffee_for_rush == 0 && total_coffee != last_rush_) {
             rush_ = true;
             last_rush_ = total_coffee;
         }

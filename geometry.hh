@@ -38,7 +38,7 @@ inline Pt operator*(const Pt& p, int factor) {
 }
 
 /**
- * @brief Multiplica un valor  per un punt.
+ * @brief Multiplica un valor per un punt.
  *
  * @param factor Valor pel qual multiplicar.
  * @param p Punt a multiplicar.
@@ -47,6 +47,18 @@ inline Pt operator*(const Pt& p, int factor) {
  */
 inline Pt operator*(int factor, const Pt& p) {
     return p * factor;
+}
+
+/**
+ * @brief Resta dos punts.
+ *
+ * @param p1 Punt a ser restat
+ * @param p2 Punt a restar
+ * 
+ * @return Punt resultant.
+ */
+inline Pt operator-(const Pt& p1, const Pt& p2) {
+    return {p1.x - p2.x, p1.y - p2.y};
 }
 
 /**
