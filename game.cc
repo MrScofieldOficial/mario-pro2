@@ -20,6 +20,16 @@ Game::Game(int width, int height)
     init_platforms();
     init_coffees();
     init_clouds();
+
+    // Afegir totes les plataformes al finder
+    for (   Platform& platform : platforms_) {
+        platform_finder_.add(&platform);
+    }
+    
+    // Afegir tots els cafes al finder
+    for (Coffee& coffee : cafes_) {
+        coffee_finder_.add(&coffee);
+    }
 }
 
 void Game::init_platforms() {
@@ -27,7 +37,7 @@ void Game::init_platforms() {
         Platform(-1, 0, 0, 23, "cracked", k), Platform(0, 30, 20, 23, "cracked", k),
         Platform(0, 6, 16, 17, "brick", k),   Platform(13, 27, 17, 18, "brick", k), 
         Platform(23, 36, 14, 15, "brick", k), Platform(5, 24, 9, 10, "brick", k),
-        Platform(27, 13, "brick", k),         Platform(17, 19, 4, 5, "brick", k),
+        Platform(27, 12, "cloud", k),         Platform(17, 19, 4, 5, "brick", k),
         Platform(20, 35, 1, 2, "cloud", k),   Platform(22, 33, 0, 1, "cloud", k),
         Platform(28, 32, -1, 0, "cloud", k),  Platform(24, 26, -1, 0, "cloud", k)
     };
@@ -38,7 +48,7 @@ void Game::init_platforms() {
 
 void Game::init_coffees() {
     cafes_ = {
-        Coffee({27 * k, 12 * k}, k),
+        Coffee({27 * k, 11 * k}, k),
         Coffee({26 * k, 13 * k}, k),
     };
     for (int i = 1; i < 20; i++) {
@@ -48,11 +58,12 @@ void Game::init_coffees() {
     add_coffees(cafes_, {21, 16}, 4, 0, 4);
 }
 
+
 void Game::init_clouds() {
     clouds_ = {
-        Cloud({19 * k, 12 * k}, 0), Cloud({24 * k, 7 * k}, 1),
+        Cloud({21 * k, 12 * k}, 0), Cloud({24 * k, 7 * k}, 1),
     };
-    add_clouds(3*k, -10*k, 400*k, 10*k, 100, 200);
+    add_clouds(3*k, -10*k, 400*k, 10*k, 500, 150);
 }
 
 // Afegeix cafes en paràbola o linia recta de manera senzilla
@@ -80,6 +91,7 @@ bool Game::is_far_enough(const pro2::Pt& p, int min_dist) {
     return true;
 }
 
+// Afegeix nuvols al fons
 void Game::add_clouds(int left, int top, int right, int bottom, int num_clouds, int min_dist) {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -88,7 +100,7 @@ void Game::add_clouds(int left, int top, int right, int bottom, int num_clouds, 
 
     int attempts = 0;
     const int max_attempts = 1000;
-    while (attempts < max_attempts) {
+    while (clouds_.size() < num_clouds && attempts < max_attempts) {
         pro2::Pt candidate = {dis_x(gen), dis_y(gen)};
         if (is_far_enough(candidate, min_dist)) {
             clouds_.push_back(Cloud(candidate, attempts % 2));
@@ -167,11 +179,22 @@ void Game::update_objects(pro2::Window& window) {
         game_over_ = true;
     }
 
+    Pt camera_center = window.camera_center();
+    Rect visible_area = {
+        camera_center.x - window.width() / 2,  // left
+        camera_center.y - window.height() / 2, // top
+        camera_center.x + window.width() / 2,  // right
+        camera_center.y + window.height() / 2  // bottom
+    };
+
+    visible_platforms_ = platform_finder_.query(visible_area);
+    visible_coffee_ = coffee_finder_.query(visible_area);
+
     // Check Coffee interactions
-    for (Coffee& coffee : cafes_) {
+    for (Coffee* coffee : visible_coffee_) {
         pro2::Rect mario_hit_box = mario_.get_hit_box(), luigi_hit_box = luigi_.get_hit_box();
-        if (!coffee.is_colected()) {
-            coffee.set_colect(coffee.can_collect_coffee(mario_hit_box, luigi_hit_box), total_coffees_);
+        if (!coffee->is_colected()) {
+            coffee->set_colect(coffee->can_collect_coffee(mario_hit_box, luigi_hit_box), total_coffees_);
         }
     }
 
@@ -242,16 +265,17 @@ void Game::paint(pro2::Window& window) {
     // No interactuables / fons
     paint_sprite(window, {9 * k, 18 * k}, Sprites::signs_sprites.at("right_arrow"), false);
     paint_sprite(window, {31 * k, 12 * k}, Sprites::signs_sprites.at("left_arrow"), false);
+    paint_sprite(window, {15 * k, 15 * k}, Sprites::bus.at("parada"), false);
 
     // Plataformes
-    for (const Platform& p : platforms_) {
-        p.paint(window);
+    for (const Platform* p : visible_platforms_) {
+        p->paint(window);
     }
 
     // Cafes
-    for (Coffee& c : cafes_){
-        if (!c.is_colected()) {
-            c.paint(window);
+    for (Coffee* c : visible_coffee_){
+        if (!c->is_colected()) {
+            c->paint(window);
         }
     }
 

@@ -36,6 +36,11 @@ class Sprites {
     static const map<string, sprite> platform_textures;
 
     /**
+     * @brief Map amb textures de les plataformes
+     */
+    static const map<string, sprite> bus;
+
+    /**
      * @brief Map amb altres sprites (com blocs especials, decoracions, etc.)
      */
     static const map<string, sprite> altres;

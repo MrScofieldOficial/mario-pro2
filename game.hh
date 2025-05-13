@@ -8,6 +8,7 @@
 #include "window.hh"
 #include "ui.hh"
 #include "cloud.hh"
+#include "finder.hh"
 
 /**
  * @brief Classe principal del joc.
@@ -29,6 +30,11 @@ class Game {
     int  total_coffees_;  // Comptador de cafès col·leccionats
     bool win_condition_;  // Indica si s’ha guanyat
     bool game_over_;      // Indica si s’ha perdut
+
+    Finder<Platform> platform_finder_;
+    Finder<Coffee> coffee_finder_;
+    std::set<Platform*> visible_platforms_;
+    std::set<Coffee*> visible_coffee_;  
 
     /**
      * @brief Processa l’entrada del teclat.

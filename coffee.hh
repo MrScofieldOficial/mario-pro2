@@ -73,6 +73,13 @@ class Coffee {
             total_colected++;
         }
     }
+    
+    /**
+     * @brief Getter del rectangle del cafè
+     * 
+     * @return La hitbox del cafè
+     */
+    pro2::Rect get_rect() { return coffee_hit_box_; }
 };
 
 #endif

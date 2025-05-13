@@ -1,28 +1,28 @@
 #include "sprites.hh"
 #include "utils.hh"
 
-const int _ = -1;
-const int r = pro2::red;
-const int s = 0xecc49b;
-const int b = 0x3b5998;
-const int y = pro2::yellow;
-const int f = 0x202020;
-const int g = pro2::green;
-const int h = 0x964807;
-const int S = 0xde7859;
-const int w = pro2::white;
-const int o = 0x050417;
-const int x = 0xdbdbdb;
-const int z = 0xb5b5b5;
-const int m = 0x824217;
-const int e = 0xf5e59d;
-const int l = 0x694a19;
-const int M = 0xc74a0c;
-const int H = 0xfcd8a8;
-const int F = 0xfc9738;
-const int B = 0;
-const int R = 0xd90275;
-const int C = 0x0aadff;
+int _ = -1;
+int r = pro2::red;
+int s = 0xecc49b;
+int b = 0x3b5998;
+int y = pro2::yellow;
+int f = 0x202020;
+int g = pro2::green;
+int h = 0x964807;
+int S = 0xde7859;
+int w = pro2::white;
+int o = 0x050417;
+int x = 0xdbdbdb;
+int z = 0xb5b5b5;
+int m = 0x824217;
+int e = 0xf5e59d;
+int l = 0x694a19;
+int M = 0xc74a0c;
+int H = 0xfcd8a8;
+int F = 0xfc9738;
+int B = 0;
+int R = 0xd90275;
+int C = 0x0aadff;
 
 const map<string, sprite> Sprites::character_sprites = {
 //* MARIO
@@ -1512,3 +1512,44 @@ const map<string, sprite> Sprites::altres = {
 
 };
 
+int Y = 0xf0e262;
+int d = 0xc7ba04;
+int D = 0x8c8303;
+
+//* BUS (PARADES I SENYAL)
+const map<string, sprite> Sprites::bus = {
+    {"parada", {
+        {_, _, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, _, _},
+        {_, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, y, _},
+        {d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d, d},
+        {_, D, D, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, D, D, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, D, D, _},
+        {_, D, D, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, D, D, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, D, D, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, w, w, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, b, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, b, b, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, b, b, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, w, w, b, b, w, w, w, w, w, w, w, w, w, w, w, Y, Y, w, w, w, w, w, w, b, b, w, w, w, w, w, w, w, Y, Y, _},
+        {_, Y, Y, _, _, b, b, _, _, _, _, _, _, _, _, _, _, _, Y, Y, _, _, _, _, _, _, b, b, _, _, _, _, _, _, _, Y, Y, _},
+        {_, Y, Y, _, _, b, b, _, _, _, _, _, _, _, _, _, _, _, Y, Y, _, _, _, _, _, _, b, b, _, _, _, _, _, _, _, Y, Y, _},
+        {_, Y, Y, _, _, b, b, _, _, _, _, _, _, _, _, _, _, _, Y, Y, _, _, _, _, _, _, b, b, _, _, _, _, _, _, _, Y, Y, _}}}
+};

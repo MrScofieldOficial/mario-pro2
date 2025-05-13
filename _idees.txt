@@ -1,7 +1,6 @@
 
 
 pantalla partida (si els dos personatges estan separats i no poden apareixer alhora a la pantalla que es divideixi i la meitat dreta sigui pel mario l'esquerra pel luigi)
-parallax
 plataforma (escala)
 salt doble
 pantalla d'inici

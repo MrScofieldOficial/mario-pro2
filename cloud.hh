@@ -10,14 +10,14 @@ class Cloud {
 
  public:
     /**
-     * @brief Constructor de Coffee amb id automàtic (basat en la X per aleatorietat)
+     * @brief Constructor de Cloud amb id automàtic (basat en la X per aleatorietat)
      * 
      * @param pos Posició inicial del núvol
      */
     Cloud(pro2::Pt pos) : pos_(pos), original_pos_(pos), id_(0) {}
 
     /**
-     * @brief Constructor de Coffee amb id específic
+     * @brief Constructor de Cloud amb id específic
      * 
      * @param pos Posició inicial del núvol
      * @param id Identificador del núvol

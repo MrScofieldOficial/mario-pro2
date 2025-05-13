@@ -9,15 +9,6 @@ void paint_hline(pro2::Window& window, int xini, int xfin, int y, Color color) {
     }
 }
 
-// Dibuixa una línia horitzontal només si el píxel superior és del color del cel (0x9389fa)
-void paint_hline_top_platforms(pro2::Window& window, int xini, int xfin, int y, Color color) {
-    for (int x = xini; x <= xfin; ++x) {
-        if (window.get_pixel({x, y - 1}) == 0x9389fa) {
-            window.set_pixel({x, y}, color);
-        }
-    }
-}
-
 // Dibuixa una línia vertical
 void paint_vline(pro2::Window& window, int x, int yini, int yfin, Color color) {
     for (int y = yini; y <= yfin; ++y) {
