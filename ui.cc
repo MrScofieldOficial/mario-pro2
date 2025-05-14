@@ -13,7 +13,7 @@ const pro2::Color sky_color = 0x9389fa;
 const pro2::Color game_over_color = 0x8f2131;
 const pro2::Color pause_color = sky_color - 0x202020;
 
-void paint_centered_text(pro2::Window& window, pro2::Pt center, const std::string& text, int y_offset = 0) {
+void paint_centered_text(pro2::Window& window, pro2::Pt center, const std::string& text, int y_offset) {
     int x_offset = (text.size() * char_width) / 2;
     for (int i = 0; i < text.size(); ++i) {
         paint_sprite(window, {center.x - x_offset + i * digit_width, center.y + y_offset}, Sprites::diccionari.at(text[i]), false);
@@ -40,7 +40,7 @@ void paint_pause_screen(pro2::Window& window, pro2::Pt cam) {
     pro2::Rect rect = {cam.x - width, cam.y - height, cam.x + width, cam.y + height};
     paint_rect(window, rect, pause_color);
     paint_centered_text(window, cam, "JOC PAUSAT", sprite_height_offset);
-    restart_info(window, cam, "PITJA 'P' PER REPRENDRE EL JOC");
+    blinking_text(window, cam, "PITJA 'P' PER REPRENDRE EL JOC");
 }
 
 void paint_win_screen(pro2::Window& window, pro2::Pt cam) {
@@ -57,10 +57,10 @@ void paint_game_over_screen(pro2::Window& window, pro2::Pt cam) {
     pro2::Rect rect = {cam.x - width, cam.y - height, cam.x + width, cam.y + height};
     paint_rect(window, rect, game_over_color);
     paint_centered_text(window, cam, "HAS PERDUT", sprite_height_offset);
-    restart_info(window, cam, "PITJA 'R' PER REINICIAR");
+    blinking_text(window, cam, "PITJA 'R' PER REINICIAR");
 }
 
-void restart_info(pro2::Window& window, pro2::Pt cam, std::string s) {
+void blinking_text(pro2::Window& window, pro2::Pt cam, std::string s) {
     int frame = window.frame_count();
     if (frame % blink_frame_period > blink_on_time) {
         int x_offset = (s.size() * char_width) / 2;

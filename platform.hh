@@ -14,7 +14,7 @@ class Platform {
 
  public:
     /**
-     * @brief Constructor per defecte (plataforma tipus "brick").
+     * @brief Constructor per defecte.
      */
     Platform() : left_(0), right_(0), top_(0), bottom_(0), id_("brick") {}
 
@@ -29,12 +29,12 @@ class Platform {
     /**
      * @brief Constructor amb valors personalitzats.
      *
-     * @param left Coordenada esquerra (en unitats abans d'escalar).
-     * @param right Coordenada dreta (en unitats abans d'escalar).
-     * @param top Coordenada superior (en unitats abans d'escalar).
-     * @param bottom Coordenada inferior (en unitats abans d'escalar).
+     * @param left Coordenada esquerra (numero de blocs).
+     * @param right Coordenada dreta (numero de blocs).
+     * @param top Coordenada superior (numero de blocs).
+     * @param bottom Coordenada inferior (numero de blocs).
      * @param id Identificador del tipus de plataforma (textura).
-     * @param k Factor d’escala (habitualment la mida d’un tile).
+     * @param k Factor d’escala (la mida dels blocs).
      */
     Platform(int left, int right, int top, int bottom, std::string id, int k)
         : left_(left * k), right_(right * k - 1), top_(top * k), bottom_(bottom * k), id_(id) {}
@@ -42,10 +42,10 @@ class Platform {
     /**
      * @brief Constructor amb valors personalitzats a partir d'un punt.
      *
-     * @param left Coordenada esquerra (en unitats abans d'escalar).
-     * @param top Coordenada superior (en unitats abans d'escalar).
+     * @param left Coordenada esquerra (numero de blocs).
+     * @param top Coordenada superior (numero de blocs).
      * @param id Identificador del tipus de plataforma (textura).
-     * @param k Factor d’escala (habitualment la mida d’un tile).
+     * @param k Factor d’escala (la mida dels blocs).
      */
     Platform(int left, int top, std::string id, int k)
         : left_(left * k), right_((left + 1) * k - 1), top_(top * k), bottom_((top + 1) * k), id_(id) {}

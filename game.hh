@@ -9,6 +9,7 @@
 #include "ui.hh"
 #include "cloud.hh"
 #include "finder.hh"
+#include "bus.hh"
 
 /**
  * @brief Classe principal del joc.
@@ -22,6 +23,7 @@ class Game {
     std::vector<Platform> platforms_;   // Vector de plataformes del món
     std::vector<Coffee>   cafes_;       // Vector de cafès col·leccionables
     std::vector<Cloud>    clouds_;   // Vector de núvols
+    std::vector<Bus>      busos_;   // Vector de parades de bus
 
     bool finished_;
     bool paused_;
@@ -30,6 +32,10 @@ class Game {
     int  total_coffees_;  // Comptador de cafès col·leccionats
     bool win_condition_;  // Indica si s’ha guanyat
     bool game_over_;      // Indica si s’ha perdut
+    bool in_stop_;        // Indica si està a una parada
+    int stop_id_;         // Guarda la id de la parada
+    bool mario_in_stop;   // Si el mario esta un una parada de bus
+    bool luigi_in_stop;   // Si el luigi esta un una parada de bus
 
     Finder<Platform> platform_finder_;
     Finder<Coffee> coffee_finder_;
@@ -85,6 +91,9 @@ class Game {
      */
     void paint(pro2::Window& window);
 
+
+    void centrar_camera (pro2::Pt character_pos, pro2::Window& window);
+
     /**
      * @brief Reinicia el joc deixant-lo com al començament.
      */
@@ -138,7 +147,7 @@ class Game {
     }
 
  private:
-    // canviar el color de les funcind: paint_hline_top_platforms (a utils) i el de pause_screen  si canvio el color del cel
+    // canviar el color de les funcind: paint_hline_top_platforms (a utils), el de pause_screen i el del sprite del bus si canvio el color del cel
     static constexpr int sky_blue = 0x9389fa;
 };
 

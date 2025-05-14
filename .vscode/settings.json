@@ -51,7 +51,11 @@
         "xtr1common": "cpp",
         "xutility": "cpp",
         "map": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "random": "cpp",
+        "algorithm": "cpp",
+        "optional": "cpp",
+        "set": "cpp"
     },
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#fbed80",

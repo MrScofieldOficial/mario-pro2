@@ -23,7 +23,7 @@ class Mario {
 
     bool rush_ = false;
     int rush_time_ = 0;
-    int rush_time_max_ = 100;
+    int rush_time_max_ = 130;
     int last_rush_ = 0;
     int coffee_for_rush = 14;
 

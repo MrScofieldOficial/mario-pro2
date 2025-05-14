@@ -3,6 +3,8 @@
 
 #include "window.hh"
 
+void paint_centered_text(pro2::Window& window, pro2::Pt center, const std::string& text, int y_offset = 0);
+
 /**
  * @brief Pinta el comptador de cafès recollits a la cantonada superior dreta de la pantalla.
  * 
@@ -43,6 +45,6 @@ void paint_game_over_screen(pro2::Window& window, pro2::Pt cam);
  * @param cam Posició central de la càmera.
  * @param s Missatge a mostrar (p. ex. "PITJA 'R' PER REINICIAR").
  */
-void restart_info(pro2::Window& window, pro2::Pt cam, std::string s);
+void blinking_text(pro2::Window& window, pro2::Pt cam, std::string s);
 
 #endif // UI_HH
