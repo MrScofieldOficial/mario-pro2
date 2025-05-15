@@ -32,10 +32,15 @@ class Game {
     int  total_coffees_;  // Comptador de cafès col·leccionats
     bool win_condition_;  // Indica si s’ha guanyat
     bool game_over_;      // Indica si s’ha perdut
+
     bool in_stop_;        // Indica si està a una parada
     int stop_id_;         // Guarda la id de la parada
-    bool mario_in_stop;   // Si el mario esta un una parada de bus
-    bool luigi_in_stop;   // Si el luigi esta un una parada de bus
+    bool mario_in_stop_;  // Si el mario esta un una parada de bus
+    bool luigi_in_stop_;  // Si el luigi esta un una parada de bus
+    pro2::Pt bus_pos_;    // Posició del sprite del bus
+    bool teleport;        // Si he canviat de parada
+    pro2::Pt stop_pos_;   // La posicio de la seguent parada
+    bool bus_moving_;     // Si el bus s'està movent
 
     Finder<Platform> platform_finder_;
     Finder<Coffee> coffee_finder_;

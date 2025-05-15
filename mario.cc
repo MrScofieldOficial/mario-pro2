@@ -85,6 +85,17 @@ void Mario::update(pro2::Window& window, const vector<Platform>& platforms, vect
         run_mult = 1.5;
     }
 
+    if (wait_) {
+        wait_cooldown_++;
+        jumping_ = false;
+        if (wait_cooldown_ >= wait_max_cooldown_) {
+            wait_ = false;
+            wait_cooldown_ = 0;
+        } else {
+            return;
+        }
+    }
+
     last_pos_ = pos_;
     if (window.is_key_down(jump_key_)) {
         jump(jump_mult);

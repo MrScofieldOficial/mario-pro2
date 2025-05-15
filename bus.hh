@@ -17,7 +17,7 @@ class Bus {
      * 
      * @param pos Posició de la parada
      */
-    Bus(pro2::Pt pos, int k) : pos_(pos * k), stop_num_("0"), stop_id_("0"), k_(k), hit_box_ ({pos_.x, pos_.y, pos_.x + 4*k, pos_.y + 2*k}) {}
+    Bus(pro2::Pt pos, int k) : pos_({pos.x * k + 2, pos.y * k}), stop_num_("0"), stop_id_("0"), k_(k), hit_box_ ({pos_.x, pos_.y, pos_.x + 4*k, pos_.y + 2*k}) {}
 
     /**
      * @brief Constructor de Bus amb id específic
@@ -25,7 +25,7 @@ class Bus {
      * @param pos Posició de la parada
      * @param id Identificador del núvol
      */
-    Bus(pro2::Pt pos, std::string num, std::string id, int k) : pos_(pos * k), stop_num_(num), stop_id_(id), k_(k), hit_box_ ({pos_.x, pos_.y, pos_.x + 4*k, pos_.y + 2*k}) {}
+    Bus(pro2::Pt pos, std::string num, std::string id, int k) : pos_({pos.x * k + 2, pos.y * k}), stop_num_(num), stop_id_(id), k_(k), hit_box_ ({pos_.x, pos_.y, pos_.x + 4*k, pos_.y + 2*k}) {}
 
     /**
      * @brief Pinta la parada

@@ -27,6 +27,10 @@ class Mario {
     int last_rush_ = 0;
     int coffee_for_rush = 14;
 
+    bool wait_ = false;
+    int wait_cooldown_ = 0;
+    int wait_max_cooldown_ = 110;
+
     char jump_key_;
     char left_key_;
     char right_key_;
@@ -179,6 +183,12 @@ class Mario {
     pro2::Rect get_hit_box() {
         return {pos_.x - 3, pos_.y - 17, pos_.x + 11, pos_.y + 1};
     }
+
+    void wait() { wait_ = true; }
+
+    void not_wait() { wait_ = false; }
+
+    bool get_wait() { return wait_; }
 };
 
 #endif
