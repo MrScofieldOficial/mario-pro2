@@ -105,9 +105,12 @@ class Mario {
     void jump(float mult);
 
     /**
-     * @brief Reinicia l’estat de rush
+     * @brief Reinicia els estats del mario
      */
-    void reset_rush() {
+    void reset() {
+        pos_ = original_pos_;
+        wait_ = false;
+        looking_left_ = false;
         last_rush_ = 0;
         rush_ = false;
         rush_time_ = 0;
@@ -164,18 +167,6 @@ class Mario {
     void toggle_grounded() { set_grounded(!grounded_); }
 
     /**
-     * @brief Retorna la posició original
-     * 
-     * @return Punt de posició inicial
-     *
-     * @note Aquesta funció també posa looking_left_ a false.
-     */
-    pro2::Pt get_original_pos() {
-        looking_left_ = false;
-        return original_pos_;
-    }
-
-    /**
      * @brief Retorna el rectangle de col·lisió de Mario
      * 
      * @return Rectangle de col·lisió
@@ -184,11 +175,10 @@ class Mario {
         return {pos_.x - 3, pos_.y - 17, pos_.x + 11, pos_.y + 1};
     }
 
-    void wait() { wait_ = true; }
+    void set_wait(bool wait) { wait_ = wait; }
 
-    void not_wait() { wait_ = false; }
+    bool wait() { return wait_; }
 
-    bool get_wait() { return wait_; }
 };
 
 #endif

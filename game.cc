@@ -137,14 +137,8 @@ void Game::centrar_camera (pro2::Pt character_pos, pro2::Window& window) {
 
 // Torna a l'estat inicial
 void Game::reiniciar(pro2::Window& window) {
-    const int width = window.width();
-    const int height = window.height();
-    mario_.set_pos(mario_.get_original_pos());
-    luigi_.set_pos(luigi_.get_original_pos());
-    mario_.reset_rush();
-    luigi_.reset_rush();
-    mario_.not_wait();
-    luigi_.not_wait();
+    mario_.reset();
+    luigi_.reset();
     paused_ = false;
     following_ = true;
     centrar_camera(mario_.pos(), window);
@@ -173,7 +167,7 @@ void Game::process_keys(pro2::Window& window) {
     }
     if (window.is_key_down(' ') && cooldown_keys_ > 10) {
         cooldown_keys_ = 0;
-        if (in_stop_ && !(mario_.get_wait() || luigi_.get_wait())) {
+        if (in_stop_ && !(mario_.wait() || luigi_.wait())) {
             bus_moving_ = true;
             int current_id = stop_id_ % 10, current_stop_num = stop_id_ / 10;
             int i = 0;
@@ -184,10 +178,10 @@ void Game::process_keys(pro2::Window& window) {
                 i++;
             }
             if (mario_in_stop_) {
-                mario_.wait();
+                mario_.set_wait(true);
             }
             if (luigi_in_stop_) {
-                luigi_.wait();
+                luigi_.set_wait(true);
             }
             // win_condition_ = !win_condition_;  // toggle
             // paused_ = !paused_;  // toggle
@@ -238,7 +232,7 @@ void Game::update_objects(pro2::Window& window) {
     bool temp_in = false;
     for (Bus& b : busos_) {
         temp_id = b.update(mario_.get_hit_box());
-        if (temp_id != 0) {
+        if (temp_id != 0 && following_) {
             stop_id_ = temp_id;
             temp_in = true;
             mario_in_stop_ = true;
@@ -246,7 +240,7 @@ void Game::update_objects(pro2::Window& window) {
 
         }
         temp_id = b.update(luigi_.get_hit_box());
-        if (temp_id != 0) {
+        if (temp_id != 0 && !following_) {
             stop_id_ = temp_id;
             temp_in = true;
             luigi_in_stop_ = true;
@@ -261,24 +255,27 @@ void Game::update_objects(pro2::Window& window) {
         bus_moving_ = false;
     }    
     if (bus_moving_ && !teleport) {
-        if (mario_in_stop_ && bus_pos_.x + 10 >= mario_.pos().x) {
+        if (mario_in_stop_ && bus_pos_.x + 10 >= mario_.pos().x && following_) {
             mario_.set_pos({stop_pos_.x + k, stop_pos_.y + 2*k});
-            if (following_) centrar_camera(mario_.pos(), window);
+            centrar_camera(mario_.pos(), window);
             bus_pos_.x = mario_.pos().x - 50;
             teleport = true;
         }
-        if (luigi_in_stop_ && bus_pos_.x + 10 >= luigi_.pos().x) {
+        if (luigi_in_stop_ && bus_pos_.x + 10 >= luigi_.pos().x && !following_) {
             luigi_.set_pos({stop_pos_.x + k, stop_pos_.y + 2*k});
-            if (!following_) centrar_camera(luigi_.pos(), window);
+            centrar_camera(luigi_.pos(), window);
             bus_pos_.x = luigi_.pos().x - 50;
             teleport = true;
         }
 
     }
-    if ((mario_in_stop_ && !mario_.get_wait()) || (luigi_in_stop_ && !luigi_.get_wait())) {
+    if ((mario_in_stop_ && !mario_.wait()) || (luigi_in_stop_ && !luigi_.wait())) {
         bus_moving_ = false;
     }
-
+    if (!bus_moving_) {
+        mario_.set_wait(false);
+        luigi_.set_wait(false);
+    }
 
     // Update clouds pos for paralax effect
     for (Cloud& c : clouds_) {
@@ -414,7 +411,7 @@ void Game::paint(pro2::Window& window) {
     mario_.paint_rush_bar(window, cam, total_coffees_);
 
     // Instruccions per les parades de bus
-    if (in_stop_ && !(mario_.get_wait() || luigi_.get_wait())) {
+    if (in_stop_ && !(mario_.wait() || luigi_.wait())) {
         pro2::Rect rect = {cam.x - 150, cam.y + 126, cam.x + 150, cam.y + 142};
         paint_rect(window, rect, 0xb7aa00);
         paint_rect_outline(window, rect, 0xf7ea40);
