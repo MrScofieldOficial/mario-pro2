@@ -52,7 +52,14 @@ void Game::init_platforms() {
         Platform(23, 36, 14, 15, "brick", k), Platform(5, 24, 9, 10, "brick", k),
         Platform(27, 12, "cloud", k),         Platform(17, 19, 4, 5, "brick", k),
         Platform(20, 35, 1, 2, "cloud", k),   Platform(22, 33, 0, 1, "cloud", k),
-        Platform(28, 32, -1, 0, "cloud", k),  Platform(24, 26, -1, 0, "cloud", k)
+        Platform(28, 32, -1, 0, "cloud", k),  Platform(24, 26, -1, 0, "cloud", k),
+        Platform(363, 375, 14, 15, "brick", k),
+        Platform(365, 366, 13, 15, "brick", k), Platform(366, 367, 12, 15, "brick", k),
+        Platform(367, 368, 11, 15, "brick", k), Platform(368, 369, 10, 15, "brick", k),
+        Platform(369, 370, 9, 15, "brick", k),  Platform(370, 371, 8, 15, "brick", k),
+        Platform(371, 372, 7, 15, "brick", k),  Platform(372, 373, 6, 15, "brick", k),
+        Platform(373, 374, 5, 15, "brick", k),  Platform(374, 375, 4, 15, "brick", k),
+        Platform(383, 395, 15, 16, "brick", k),
     };
     for (int i = 1; i < 20; i++) {
         platforms_.push_back(Platform(23 + i * 17, 36 + i * 17, 14 + (i % 2), 15 + (i % 2), "brick", k));
@@ -210,6 +217,10 @@ void Game::update_objects(pro2::Window& window) {
         game_over_ = true;
     }
 
+    if ((mario_.pos().x > 390 * k + 10) || luigi_.pos().x > 390 * k + 10) {
+        win_condition_ = true;
+    }
+
     Pt camera_center = window.camera_center();
     Rect visible_area = {
         camera_center.x - window.width() / 2,  // left
@@ -343,6 +354,7 @@ void Game::paint(pro2::Window& window) {
 
     // No interactuables / fons
     paint_sprite(window, {9 * k, 18 * k}, Sprites::signs_sprites.at("right_arrow"), false);
+    paint_sprite(window, {374 * k, 2 * k}, Sprites::signs_sprites.at("right_arrow"), false);
     paint_sprite(window, {31 * k, 12 * k}, Sprites::signs_sprites.at("left_arrow"), false);
 
     // Plataformes
@@ -361,8 +373,9 @@ void Game::paint(pro2::Window& window) {
             c->paint(window);
         }
     }
-
-
+    
+    // Bandera
+    paint_sprite(window, {390 * k, 13 * k}, Sprites::altres.at("bandera_final"), false);
 
     // Personatges i enemics
     mario_.paint(window);

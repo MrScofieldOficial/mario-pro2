@@ -175,8 +175,18 @@ class Mario {
         return {pos_.x - 3, pos_.y - 17, pos_.x + 11, pos_.y + 1};
     }
 
+     /**
+     * @brief Estableix si es para el mario (esperant el bus)
+     * 
+     * @param wait Estat de pausa
+     */
     void set_wait(bool wait) { wait_ = wait; }
 
+    /**
+     * @brief Comprova si Mario està en estat d’espera
+     * 
+     * @return true si està en espera, false altrament
+     */
     bool wait() { return wait_; }
 
 };

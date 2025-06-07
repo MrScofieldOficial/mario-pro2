@@ -42,16 +42,12 @@ class Cloud {
     /**
      * @brief Restaura la posició inicial
      */
-    void reset_pos() {
-        pos_ = original_pos_;
-    }
+    void reset_pos() { pos_ = original_pos_; }
 
     /**
      * @brief Retorna la posicio actual
      */
-    pro2::Pt pos() const {
-        return pos_;
-    }
+    pro2::Pt pos() const { return pos_; }
 };
 
 #endif
